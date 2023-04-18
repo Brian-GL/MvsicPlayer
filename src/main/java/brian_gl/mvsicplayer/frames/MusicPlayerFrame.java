@@ -6,6 +6,13 @@ package brian_gl.mvsicplayer.frames;
 
 import brian_gl.mvsicplayer.lang.Language;
 import brian_gl.mvsicplayer.lang.LanguageText;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -20,8 +27,23 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
      * Creates new form MusicPlayerFrame
      */
     public MusicPlayerFrame() {
-        _LanguageText = new LanguageText(Language.SPANISH);
-        initComponents();
+        
+        try {
+            
+            setLocationRelativeTo(null);
+            
+            //Set frame icon:
+            File resourcesDirectory = new File("src/main/resources/img/mvsic-player-logo-simple.png");
+            Image iconImage = Toolkit.getDefaultToolkit().getImage(resourcesDirectory.toURI().toURL());
+            setIconImage(iconImage);
+            iconImage.flush();
+            
+            _LanguageText = new LanguageText(Language.SPANISH);
+            
+            initComponents();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(MusicPlayerFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -34,6 +56,13 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        mainPanel = new javax.swing.JPanel();
+        playerPanel = new javax.swing.JPanel();
+        coverArtPreviousNextPanel = new javax.swing.JPanel();
+        previousTrackLabel = new javax.swing.JLabel();
+        coverArtLabel = new javax.swing.JLabel();
+        nextTrackLabel = new javax.swing.JLabel();
+        playerButtonsPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         menuItemFiles = new javax.swing.JMenu();
 
@@ -41,31 +70,102 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mvsic Player");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new java.awt.Dimension(900, 700));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setName("musicPlayerFrame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(900, 700));
         setSize(new java.awt.Dimension(900, 700));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        menuBar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mainPanel.setMinimumSize(new java.awt.Dimension(900, 668));
+        mainPanel.setLayout(new java.awt.CardLayout());
+
+        playerPanel.setMinimumSize(new java.awt.Dimension(900, 668));
+        playerPanel.setOpaque(false);
+        playerPanel.setLayout(new java.awt.BorderLayout());
+
+        coverArtPreviousNextPanel.setMinimumSize(new java.awt.Dimension(900, 475));
+        coverArtPreviousNextPanel.setPreferredSize(new java.awt.Dimension(900, 475));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 30);
+        flowLayout1.setAlignOnBaseline(true);
+        coverArtPreviousNextPanel.setLayout(flowLayout1);
+
+        previousTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        previousTrackLabel.setText("<html><p style='font-size:50px;'>&#x227A;</p></html>");
+        previousTrackLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        previousTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        previousTrackLabel.setMinimumSize(new java.awt.Dimension(150, 475));
+        previousTrackLabel.setPreferredSize(new java.awt.Dimension(150, 475));
+        previousTrackLabel.setRequestFocusEnabled(false);
+        previousTrackLabel.setVerifyInputWhenFocusTarget(false);
+        coverArtPreviousNextPanel.add(previousTrackLabel);
+
+        coverArtLabel.setBackground(new java.awt.Color(255, 255, 255));
+        coverArtLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        coverArtLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        coverArtLabel.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        coverArtLabel.setMinimumSize(new java.awt.Dimension(475, 475));
+        coverArtLabel.setPreferredSize(new java.awt.Dimension(475, 475));
+        coverArtPreviousNextPanel.add(coverArtLabel);
+
+        nextTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nextTrackLabel.setText("<html><p style='font-size:50px;'>&#x227B;</p></html>");
+        nextTrackLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nextTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nextTrackLabel.setMinimumSize(new java.awt.Dimension(150, 475));
+        nextTrackLabel.setPreferredSize(new java.awt.Dimension(150, 475));
+        nextTrackLabel.setRequestFocusEnabled(false);
+        nextTrackLabel.setVerifyInputWhenFocusTarget(false);
+        coverArtPreviousNextPanel.add(nextTrackLabel);
+
+        playerPanel.add(coverArtPreviousNextPanel, java.awt.BorderLayout.CENTER);
+
+        playerButtonsPanel.setMinimumSize(new java.awt.Dimension(900, 125));
+        playerButtonsPanel.setPreferredSize(new java.awt.Dimension(900, 125));
+        playerPanel.add(playerButtonsPanel, java.awt.BorderLayout.SOUTH);
+
+        mainPanel.add(playerPanel, "player");
+
+        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+
+        menuBar.setBorder(null);
         menuBar.setMaximumSize(new java.awt.Dimension(32767, 32));
         menuBar.setMinimumSize(new java.awt.Dimension(900, 32));
         menuBar.setName(""); // NOI18N
         menuBar.setPreferredSize(new java.awt.Dimension(900, 32));
 
-        menuItemFiles.setText(_LanguageText.MenuItemFiles());
+        menuItemFiles.setText("<html><b>Archivo</b></html>");
         menuItemFiles.setToolTipText(_LanguageText.MenuItemFilesTooltip());
         menuBar.add(menuItemFiles);
 
         setJMenuBar(menuBar);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        dispose();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel coverArtLabel;
+    private javax.swing.JPanel coverArtPreviousNextPanel;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuItemFiles;
+    private javax.swing.JLabel nextTrackLabel;
+    private javax.swing.JPanel playerButtonsPanel;
+    private javax.swing.JPanel playerPanel;
+    private javax.swing.JLabel previousTrackLabel;
     // End of variables declaration//GEN-END:variables
 
     

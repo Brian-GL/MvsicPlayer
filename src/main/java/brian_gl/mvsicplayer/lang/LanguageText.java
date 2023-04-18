@@ -21,10 +21,10 @@ public class LanguageText {
         
         switch(_Language){
             case SPANISH:
-                word = "Archivo";
+                word = "<html><b>Archivo</b></html>";
             break;
             case ENGLISH:
-                word = "File";
+                word = "<html><b>File</b></html>";
             break;
             default:
                 word = "?";
@@ -40,10 +40,10 @@ public class LanguageText {
         
         switch(_Language){
             case SPANISH:
-                word = "Abrir archivo(s) para reproductir";
+                word = "<html><u>Abrir archivo(s) para reproducir</u></html>";
             break;
             case ENGLISH:
-                word = "Open file(s) to play";
+                word = "<html><u>Open file(s) to play</u></html>";
             break;
             default:
                 word = "?";
