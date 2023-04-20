@@ -275,6 +275,45 @@ public class LanguageText {
         return word;
     }
     
+    public String MenuFontText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><b>Fuente</b></html>";
+            break;
+            case ENGLISH:
+                word = "<html><b>Font</b></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String MenuFontTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Seleccionar/cambiar fuente</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Select/change font</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    
     // </editor-fold>
     
     

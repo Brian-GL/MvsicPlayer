@@ -4,14 +4,17 @@
  */
 package brian_gl.mvsicplayer.frames;
 
+import brian_gl.mvsicplayer.font.FontText;
+import brian_gl.mvsicplayer.font.FontType;
 import brian_gl.mvsicplayer.lang.Language;
 import brian_gl.mvsicplayer.lang.LanguageText;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.MalformedURLException;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,6 +24,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     /**Language Class To Set Language Local Text In Frame*/
     private LanguageText _LanguageText;
+    
+    private FontText _FontText;
     
     /**
      * Creates new form MusicPlayerFrame
@@ -41,6 +46,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         languageButtonGroup = new javax.swing.ButtonGroup();
+        fontButtonGroup = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
         playerPanel = new javax.swing.JPanel();
         coverArtPreviousNextPanel = new javax.swing.JPanel();
@@ -57,9 +63,27 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         languageMenu = new javax.swing.JMenu();
         spanishRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         englishRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        fontMenu = new javax.swing.JMenu();
+        anuphanRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        firaSansRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        interRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        montserratRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        openSansRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        quickSandRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        ralewayRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        robotoRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
 
         languageButtonGroup.add(spanishRadioButtonMenuItem);
         languageButtonGroup.add(englishRadioButtonMenuItem);
+
+        fontButtonGroup.add(anuphanRadioButtonMenuItem);
+        fontButtonGroup.add(firaSansRadioButtonMenuItem);
+        fontButtonGroup.add(interRadioButtonMenuItem);
+        fontButtonGroup.add(montserratRadioButtonMenuItem);
+        fontButtonGroup.add(openSansRadioButtonMenuItem);
+        fontButtonGroup.add(quickSandRadioButtonMenuItem);
+        fontButtonGroup.add(ralewayRadioButtonMenuItem);
+        fontButtonGroup.add(robotoRadioButtonMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mvsic Player");
@@ -85,13 +109,21 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         coverArtPreviousNextPanel.setPreferredSize(new java.awt.Dimension(900, 500));
 
         previousTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        previousTrackLabel.setText("<html><p style='font-size:50px;'>&#x227A;</p></html>");
+        previousTrackLabel.setToolTipText("");
         previousTrackLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         previousTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         previousTrackLabel.setMinimumSize(new java.awt.Dimension(150, 475));
         previousTrackLabel.setPreferredSize(new java.awt.Dimension(150, 475));
         previousTrackLabel.setRequestFocusEnabled(false);
         previousTrackLabel.setVerifyInputWhenFocusTarget(false);
+        previousTrackLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                previousTrackLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                previousTrackLabelMouseExited(evt);
+            }
+        });
 
         coverArtLabel.setBackground(new java.awt.Color(255, 255, 255));
         coverArtLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -101,13 +133,20 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         coverArtLabel.setPreferredSize(new java.awt.Dimension(475, 475));
 
         nextTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nextTrackLabel.setText("<html><p style='font-size:50px;'>&#x227B;</p></html>");
         nextTrackLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nextTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         nextTrackLabel.setMinimumSize(new java.awt.Dimension(150, 475));
         nextTrackLabel.setPreferredSize(new java.awt.Dimension(150, 475));
         nextTrackLabel.setRequestFocusEnabled(false);
         nextTrackLabel.setVerifyInputWhenFocusTarget(false);
+        nextTrackLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nextTrackLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nextTrackLabelMouseExited(evt);
+            }
+        });
 
         titleAlbumLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleAlbumLabel.setText("<html><b>Title</b> - <i>Album</i></html>");
@@ -134,6 +173,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         durationProgressLabel.setPreferredSize(new java.awt.Dimension(37, 24));
 
         progressSlider.setToolTipText("");
+        progressSlider.setValue(0);
+        progressSlider.setEnabled(false);
 
         javax.swing.GroupLayout coverArtPreviousNextPanelLayout = new javax.swing.GroupLayout(coverArtPreviousNextPanel);
         coverArtPreviousNextPanel.setLayout(coverArtPreviousNextPanelLayout);
@@ -227,6 +268,75 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
         preferencesMenuItem.add(languageMenu);
 
+        fontMenu.setText("<html>Font</html>");
+
+        anuphanRadioButtonMenuItem.setText("<html><b><i>Anuphan</i></b></html>");
+        anuphanRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                anuphanRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(anuphanRadioButtonMenuItem);
+
+        firaSansRadioButtonMenuItem.setText("<html><b><i>Fira Sans</i></b></html>");
+        firaSansRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                firaSansRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(firaSansRadioButtonMenuItem);
+
+        interRadioButtonMenuItem.setText("<html><b><i>Inter</i></b></html>");
+        interRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                interRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(interRadioButtonMenuItem);
+
+        montserratRadioButtonMenuItem.setText("<html><b><i>Montserrat</i></b></html>");
+        montserratRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                montserratRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(montserratRadioButtonMenuItem);
+
+        openSansRadioButtonMenuItem.setText("<html><b><i>Open Sans</i></b></html>");
+        openSansRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                openSansRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(openSansRadioButtonMenuItem);
+
+        quickSandRadioButtonMenuItem.setText("<html><b><i>QuickSand</i></b></html>");
+        quickSandRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                quickSandRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(quickSandRadioButtonMenuItem);
+
+        ralewayRadioButtonMenuItem.setText("<html><b><i>Raleway</i></b></html>");
+        ralewayRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ralewayRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(ralewayRadioButtonMenuItem);
+
+        robotoRadioButtonMenuItem.setSelected(true);
+        robotoRadioButtonMenuItem.setText("<html><b><i>Roboto</i></b></html>");
+        robotoRadioButtonMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                robotoRadioButtonMenuItemMousePressed(evt);
+            }
+        });
+        fontMenu.add(robotoRadioButtonMenuItem);
+
+        preferencesMenuItem.add(fontMenu);
+
         menuBar.add(preferencesMenuItem);
 
         setJMenuBar(menuBar);
@@ -250,22 +360,92 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         setLanguage(Language.SPANISH);
     }//GEN-LAST:event_spanishRadioButtonMenuItemMousePressed
 
+    private void previousTrackLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousTrackLabelMouseEntered
+        // TODO add your handling code here:
+        previousTrackLabel.setText("<html><p style='font-size:50px;'>&#x227A;</p></html>");
+    }//GEN-LAST:event_previousTrackLabelMouseEntered
+
+    private void previousTrackLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousTrackLabelMouseExited
+        // TODO add your handling code here:
+        previousTrackLabel.setText("");
+    }//GEN-LAST:event_previousTrackLabelMouseExited
+
+    private void nextTrackLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextTrackLabelMouseEntered
+        // TODO add your handling code here:
+        nextTrackLabel.setText("<html><p style='font-size:50px;'>&#x227B;</p></html>");
+    }//GEN-LAST:event_nextTrackLabelMouseEntered
+
+    private void nextTrackLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextTrackLabelMouseExited
+        // TODO add your handling code here:
+        nextTrackLabel.setText("");
+    }//GEN-LAST:event_nextTrackLabelMouseExited
+
+    private void anuphanRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_anuphanRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.ANUPHAN);
+    }//GEN-LAST:event_anuphanRadioButtonMenuItemMousePressed
+
+    private void firaSansRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firaSansRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.FIRA_SANS);
+    }//GEN-LAST:event_firaSansRadioButtonMenuItemMousePressed
+
+    private void interRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_interRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.INTER);
+    }//GEN-LAST:event_interRadioButtonMenuItemMousePressed
+
+    private void montserratRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_montserratRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.MONTSERRAT);
+    }//GEN-LAST:event_montserratRadioButtonMenuItemMousePressed
+
+    private void openSansRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openSansRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.OPEN_SANS);
+    }//GEN-LAST:event_openSansRadioButtonMenuItemMousePressed
+
+    private void quickSandRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quickSandRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.QUICKSAND);
+    }//GEN-LAST:event_quickSandRadioButtonMenuItemMousePressed
+
+    private void ralewayRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ralewayRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.RALEWAY);
+    }//GEN-LAST:event_ralewayRadioButtonMenuItemMousePressed
+
+    private void robotoRadioButtonMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_robotoRadioButtonMenuItemMousePressed
+        // TODO add your handling code here:
+        setFontType(FontType.ROBOTO);
+    }//GEN-LAST:event_robotoRadioButtonMenuItemMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButtonMenuItem anuphanRadioButtonMenuItem;
     private javax.swing.JLabel artistLabel;
     private javax.swing.JLabel coverArtLabel;
     private javax.swing.JPanel coverArtPreviousNextPanel;
     private javax.swing.JLabel durationProgressLabel;
     private javax.swing.JRadioButtonMenuItem englishRadioButtonMenuItem;
     private javax.swing.JMenu fileMenuItem;
+    private javax.swing.JRadioButtonMenuItem firaSansRadioButtonMenuItem;
+    private javax.swing.ButtonGroup fontButtonGroup;
+    private javax.swing.JMenu fontMenu;
+    private javax.swing.JRadioButtonMenuItem interRadioButtonMenuItem;
     private javax.swing.ButtonGroup languageButtonGroup;
     private javax.swing.JMenu languageMenu;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JRadioButtonMenuItem montserratRadioButtonMenuItem;
     private javax.swing.JLabel nextTrackLabel;
+    private javax.swing.JRadioButtonMenuItem openSansRadioButtonMenuItem;
     private javax.swing.JPanel playerPanel;
     private javax.swing.JMenu preferencesMenuItem;
     private javax.swing.JLabel previousTrackLabel;
     private javax.swing.JSlider progressSlider;
+    private javax.swing.JRadioButtonMenuItem quickSandRadioButtonMenuItem;
+    private javax.swing.JRadioButtonMenuItem ralewayRadioButtonMenuItem;
+    private javax.swing.JRadioButtonMenuItem robotoRadioButtonMenuItem;
     private javax.swing.JRadioButtonMenuItem spanishRadioButtonMenuItem;
     private javax.swing.JLabel titleAlbumLabel;
     // End of variables declaration//GEN-END:variables
@@ -275,14 +455,18 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
        try {
                 
             //Set frame icon:
-            File resourcesDirectory = new File("src/main/resources/img/mvsic-player-logo-simple.png");
-            Image iconImage = Toolkit.getDefaultToolkit().getImage(resourcesDirectory.toURI().toURL());
+            File frameIconFile = new File("src/main/resources/img/mvsic-player-logo-simple.png");
+            Image iconImage = Toolkit.getDefaultToolkit().getImage(frameIconFile.toURI().toURL());
             setIconImage(iconImage);
             iconImage.flush();
 
             //Set language:
             _LanguageText = new LanguageText();
             setLanguage(Language.SPANISH);
+            
+            //Set font type:
+            _FontText = new FontText();
+            setFontType(FontType.ROBOTO);
 
         } catch (MalformedURLException ex) {
 
@@ -304,6 +488,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         languageMenu.setText(_LanguageText.MenuLanguageText());
         languageMenu.setToolTipText(_LanguageText.MenuLanguageTooltipText());
         
+        fontMenu.setText(_LanguageText.MenuFontText());
+        fontMenu.setToolTipText(_LanguageText.MenuFontTooltipText());
+        
         //Labels:
         
         titleAlbumLabel.setText(_LanguageText.LabelTitleAlbumText());
@@ -319,4 +506,58 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         nextTrackLabel.setToolTipText(_LanguageText.LabelNextTrackTooltipText());
     }
     
+    private void setFontType(FontType fontType){
+        
+        FontType previousFontType = _FontText.getFontType();
+        
+        _FontText.setFontType(fontType);
+        
+        Font createdFont = _FontText.createFont();
+        
+        if(createdFont != null){
+            
+            GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //Register the font
+            graphicsEnvironment.registerFont(createdFont);
+            
+            //Menu Items:
+            
+            Font menuItemFont = createdFont.deriveFont(13f);
+            
+            fileMenuItem.setFont(menuItemFont);
+            preferencesMenuItem.setFont(menuItemFont);
+            
+            //Menus:
+            
+            Font menuFont = createdFont.deriveFont(12f);
+            languageMenu.setFont(menuFont);
+            fontMenu.setFont(menuFont);
+            
+            //Radio Button Menus:
+            anuphanRadioButtonMenuItem.setFont(menuFont);
+            englishRadioButtonMenuItem.setFont(menuFont);
+            firaSansRadioButtonMenuItem.setFont(menuFont);
+            interRadioButtonMenuItem.setFont(menuFont);
+            montserratRadioButtonMenuItem.setFont(menuFont);
+            openSansRadioButtonMenuItem.setFont(menuFont);
+            quickSandRadioButtonMenuItem.setFont(menuFont);
+            ralewayRadioButtonMenuItem.setFont(menuFont);
+            robotoRadioButtonMenuItem.setFont(menuFont);
+            spanishRadioButtonMenuItem.setFont(menuFont);
+
+            //Labels:
+            
+            Font labelFont = createdFont.deriveFont(14f);
+
+            titleAlbumLabel.setFont(labelFont);
+            artistLabel.setFont(labelFont);
+            durationProgressLabel.setFont(menuItemFont);
+            
+            
+        } else{
+            
+            _FontText.setFontType(previousFontType);
+            
+        }
+    }
 }

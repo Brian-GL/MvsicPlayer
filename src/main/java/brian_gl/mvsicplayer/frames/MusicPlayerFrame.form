@@ -7,6 +7,11 @@
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="languageButtonGroup.add(spanishRadioButtonMenuItem);&#xd;&#xa;languageButtonGroup.add(englishRadioButtonMenuItem);&#xd;&#xa;"/>
       </AuxValues>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="fontButtonGroup">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="fontButtonGroup.add(anuphanRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(firaSansRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(interRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(montserratRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(openSansRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(quickSandRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(ralewayRadioButtonMenuItem);&#xd;&#xa;fontButtonGroup.add(robotoRadioButtonMenuItem);&#xd;&#xa;"/>
+      </AuxValues>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -70,6 +75,78 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="englishRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="fontMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;Font&lt;/html&gt;"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="anuphanRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Anuphan&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="anuphanRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="firaSansRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Fira Sans&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="firaSansRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="interRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Inter&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="interRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="montserratRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Montserrat&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="montserratRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="openSansRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Open Sans&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="openSansRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="quickSandRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;QuickSand&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="quickSandRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ralewayRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Raleway&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ralewayRadioButtonMenuItemMousePressed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="robotoRadioButtonMenuItem">
+                  <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;&lt;i&gt;Roboto&lt;/i&gt;&lt;/b&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="robotoRadioButtonMenuItemMousePressed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -221,7 +298,7 @@
                 <Component class="javax.swing.JLabel" name="previousTrackLabel">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p style=&apos;font-size:50px;&apos;&gt;&amp;#x227A;&lt;/p&gt;&lt;/html&gt;"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Hand Cursor"/>
                     </Property>
@@ -235,6 +312,10 @@
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="previousTrackLabelMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="previousTrackLabelMouseExited"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="coverArtLabel">
                   <Properties>
@@ -261,7 +342,6 @@
                 <Component class="javax.swing.JLabel" name="nextTrackLabel">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p style=&apos;font-size:50px;&apos;&gt;&amp;#x227B;&lt;/p&gt;&lt;/html&gt;"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Hand Cursor"/>
                     </Property>
@@ -275,6 +355,10 @@
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nextTrackLabelMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nextTrackLabelMouseExited"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="titleAlbumLabel">
                   <Properties>
@@ -330,6 +414,8 @@
                 <Component class="javax.swing.JSlider" name="progressSlider">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="value" type="int" value="0"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
