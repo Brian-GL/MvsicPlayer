@@ -14,6 +14,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -24,7 +25,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     /**Language Class To Set Language Local Text In Frame*/
     private LanguageText _LanguageText;
-    
+    /**Font Class To Set Font Local Text In Frame*/
     private FontText _FontText;
     
     /**
@@ -459,7 +460,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             Image iconImage = Toolkit.getDefaultToolkit().getImage(frameIconFile.toURI().toURL());
             setIconImage(iconImage);
             iconImage.flush();
-
+            
             //Set language:
             _LanguageText = new LanguageText();
             setLanguage(Language.SPANISH);
@@ -508,56 +509,42 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     
     private void setFontType(FontType fontType){
         
-        FontType previousFontType = _FontText.getFontType();
-        
         _FontText.setFontType(fontType);
         
-        Font createdFont = _FontText.createFont();
+        Font createdFont = _FontText.getFont();
         
-        if(createdFont != null){
-            
-            GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //Register the font
-            graphicsEnvironment.registerFont(createdFont);
-            
-            //Menu Items:
-            
-            Font menuItemFont = createdFont.deriveFont(13f);
-            
-            fileMenuItem.setFont(menuItemFont);
-            preferencesMenuItem.setFont(menuItemFont);
-            
-            //Menus:
-            
-            Font menuFont = createdFont.deriveFont(12f);
-            languageMenu.setFont(menuFont);
-            fontMenu.setFont(menuFont);
-            
-            //Radio Button Menus:
-            anuphanRadioButtonMenuItem.setFont(menuFont);
-            englishRadioButtonMenuItem.setFont(menuFont);
-            firaSansRadioButtonMenuItem.setFont(menuFont);
-            interRadioButtonMenuItem.setFont(menuFont);
-            montserratRadioButtonMenuItem.setFont(menuFont);
-            openSansRadioButtonMenuItem.setFont(menuFont);
-            quickSandRadioButtonMenuItem.setFont(menuFont);
-            ralewayRadioButtonMenuItem.setFont(menuFont);
-            robotoRadioButtonMenuItem.setFont(menuFont);
-            spanishRadioButtonMenuItem.setFont(menuFont);
+        //Menu Items:
 
-            //Labels:
-            
-            Font labelFont = createdFont.deriveFont(14f);
+        Font menuItemFont = createdFont.deriveFont(13f);
 
-            titleAlbumLabel.setFont(labelFont);
-            artistLabel.setFont(labelFont);
-            durationProgressLabel.setFont(menuItemFont);
-            
-            
-        } else{
-            
-            _FontText.setFontType(previousFontType);
-            
-        }
+        fileMenuItem.setFont(menuItemFont);
+        preferencesMenuItem.setFont(menuItemFont);
+
+        //Menus:
+
+        Font menuFont = createdFont.deriveFont(12f);
+        languageMenu.setFont(menuFont);
+        fontMenu.setFont(menuFont);
+
+        //Radio Button Menus:
+        anuphanRadioButtonMenuItem.setFont(menuFont);
+        englishRadioButtonMenuItem.setFont(menuFont);
+        firaSansRadioButtonMenuItem.setFont(menuFont);
+        interRadioButtonMenuItem.setFont(menuFont);
+        montserratRadioButtonMenuItem.setFont(menuFont);
+        openSansRadioButtonMenuItem.setFont(menuFont);
+        quickSandRadioButtonMenuItem.setFont(menuFont);
+        ralewayRadioButtonMenuItem.setFont(menuFont);
+        robotoRadioButtonMenuItem.setFont(menuFont);
+        spanishRadioButtonMenuItem.setFont(menuFont);
+
+        //Labels:
+
+        Font labelFont = createdFont.deriveFont(14f);
+
+        titleAlbumLabel.setFont(labelFont);
+        artistLabel.setFont(labelFont);
+        durationProgressLabel.setFont(menuItemFont);
+           
     }
 }
