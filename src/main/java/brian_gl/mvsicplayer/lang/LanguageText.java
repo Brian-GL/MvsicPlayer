@@ -19,16 +19,16 @@ public class LanguageText {
     
     // <editor-fold defaultstate="collapsed" desc="Labels">
     
-    public String LabelTitleAlbumText(){
+    public String LabelTitleText(){
         
         String word;
         
         switch(getLanguage()){
             case SPANISH:
-                word = "<html><b>Título</b> - <i>Álbum</i></html>";
+                word = "<html><b>Título</b></html>";
             break;
             case ENGLISH:
-                word = "<html><b>Title</b> - <i>Album</i></html>";
+                word = "<html><b>Title</b></html>";
             break;
             default:
                 word = "?";
@@ -38,16 +38,16 @@ public class LanguageText {
         return word;
     }
     
-    public String LabelTitleAlbumTooltipText(){
+    public String LabelTitleTooltipText(){
         
         String word;
         
         switch(getLanguage()){
             case SPANISH:
-                word = "<html><b>Título y álbum de la canción</i></html>";
+                word = "<html><b>Título de la canción</i></html>";
             break;
             case ENGLISH:
-                word = "<html><i>Song's title and album</i></html>";
+                word = "<html><i>Song's title</i></html>";
             break;
             default:
                 word = "?";
@@ -57,16 +57,16 @@ public class LanguageText {
         return word;
     }
     
-    public String LabelArtistText(){
+    public String LabelArtistAlbumText(){
         
         String word;
         
         switch(getLanguage()){
             case SPANISH:
-                word = "<html>Artista</html>";
+                word = "<html>Artista - <i>Álbum</i></html>";
             break;
             case ENGLISH:
-                word = "<html>Artist</html>";
+                word = "<html>Artist - <i>Album</i></html>";
             break;
             default:
                 word = "?";
@@ -76,16 +76,16 @@ public class LanguageText {
         return word;
     }
     
-    public String LabelArtistTooltipText(){
+    public String LabelArtistAlbumTooltipText(){
         
         String word;
         
         switch(getLanguage()){
             case SPANISH:
-                word = "<html><i>Artista de la canción</i></html>";
+                word = "<html><i>Artista y álbum referente de la canción</i></html>";
             break;
             case ENGLISH:
-                word = "<html><i>Song's artist</i></html>";
+                word = "<html><i>Song's artist and album</i></html>";
             break;
             default:
                 word = "?";
@@ -152,11 +152,111 @@ public class LanguageText {
         return word;
     }
     
+    public String LabelBrandTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Acerca de <b>Mvsic Player</b></i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>About <b>Mvsic Player</b></i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Menu Items">
     
-    public String MenuItemFileText(){
+    public String MenuItemOpenFilesText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><b>Abrir Archivo(s)</b></html>";
+            break;
+            case ENGLISH:
+                word = "<html><b>Open File(s)</b></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String MenuItemOpenFilesTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Seleccionar archivos de música para reproducir</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Select music files to play</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String MenuItemOpenFolderText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><b>Abrir Carpeta</b></html>";
+            break;
+            case ENGLISH:
+                word = "<html><b>Open Folder</b></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String MenuItemOpenFolderTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Seleccionar carpeta para reproducir archivos dentro de esta</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Select folder to play music files in it</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Menus">
+    
+    public String MenuFileText(){
         
         String word;
         
@@ -175,7 +275,7 @@ public class LanguageText {
         return word;
     }
     
-    public String MenuItemFileTooltipText(){
+    public String MenuFileTooltipText(){
         
         String word;
         
@@ -194,7 +294,7 @@ public class LanguageText {
         return word;
     }
     
-    public String MenuItemPreferencesText(){
+    public String MenuPreferencesText(){
      
         String word;
         
@@ -213,7 +313,7 @@ public class LanguageText {
         return word;
     }
     
-    public String MenuItemPreferencesTooltipText(){
+    public String MenuPreferencesTooltipText(){
         
         String word;
         
@@ -231,11 +331,6 @@ public class LanguageText {
         
         return word;
     }
-    
-    
-    // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Menus">
     
     public String MenuLanguageText(){
         
@@ -316,6 +411,199 @@ public class LanguageText {
     
     // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Menu Buttons">
+    
+    public String ButtonSongsText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Canciones</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Songs</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonSongsTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Mostrar las canciones cargadas</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Show load songs</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonArtistsText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Artistas</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Artists</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonArtistsTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Mostrar l@as artistas cargad@s</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Show load artist</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonAlbumsText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Álbumes</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Albums</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonAlbumsTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Mostrar los albumes cargados</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Show load albums</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonGenresText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Géneros</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Genres</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonGenresTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Mostrar los géneros cargados</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Show load genres</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonPlaylistsText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Listas</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Playlists</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String ButtonPlaylistsTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><i>Mostrar las listas de reproducción</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Show playlists</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    // </editor-fold>
     
     /**
      * @return the actual language
