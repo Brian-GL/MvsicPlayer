@@ -4,15 +4,22 @@
  */
 package brian_gl.mvsicplayer.frames;
 
+import brian_gl.mvsicplayer.colour.Colour;
 import brian_gl.mvsicplayer.font.FontText;
 import brian_gl.mvsicplayer.font.FontType;
 import brian_gl.mvsicplayer.lang.Language;
 import brian_gl.mvsicplayer.lang.LanguageText;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -27,11 +34,16 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private LanguageText _LanguageText;
     /**Font Class To Set Font Local Text In Frame*/
     private FontText _FontText;
+    /**Colour Class To Set In Interface*/
+    private Colour _Colour;
     
     /**
      * Creates new form MusicPlayerFrame
      */
     public MusicPlayerFrame() {
+        
+        //Set Colours:
+        _Colour = new Colour();
         
         initComponents();
         customInitComponents();
@@ -48,7 +60,34 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
         languageButtonGroup = new javax.swing.ButtonGroup();
         fontButtonGroup = new javax.swing.ButtonGroup();
-        mainPanel = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+
+                int width = this.getWidth();
+                int height = this.getHeight();
+
+                Color transparent = new Color(0,0,0,0);
+                Graphics2D screenGraphics = (Graphics2D) g;
+                screenGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Vertical
+                GradientPaint verticalGradient = new GradientPaint(
+                    0, 0, transparent,
+                    0, height, _Colour.getFirstColor());
+
+                // Horizontal
+                GradientPaint horizontalGradient = new GradientPaint(
+                    0, 0, _Colour.getThirdColor(),
+                    width, 0, _Colour.getSecondColor(), true);
+
+                screenGraphics.setPaint(horizontalGradient);
+                screenGraphics.fillRect(0, 0, width, height);
+                screenGraphics.setPaint(verticalGradient);
+                screenGraphics.fillRect(0, 0, width, height);
+
+            }
+        };
         playerPanel = new javax.swing.JPanel();
         coverArtPreviousNextPanel = new javax.swing.JPanel();
         previousTrackLabel = new javax.swing.JLabel();
@@ -58,13 +97,33 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         artistAlbumLabel = new javax.swing.JLabel();
         durationProgressLabel = new javax.swing.JLabel();
         progressSlider = new javax.swing.JSlider();
-        menuPanel = new javax.swing.JPanel();
+        menuPanel = new javax.swing.JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+
+                int width = this.getWidth();
+                int height = this.getHeight();
+
+                Graphics2D screenGraphics = (Graphics2D) g;
+                screenGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Vertical
+                GradientPaint verticalGradient = new GradientPaint(
+                    0, 0, _Colour.getThirdColor(),
+                    0, height, _Colour.getFirstColor());
+
+                screenGraphics.setPaint(verticalGradient);
+                screenGraphics.fillRect(0, 0, width, height);
+
+            }
+        };
         brandLabel = new javax.swing.JLabel();
         songsButton = new javax.swing.JButton();
         artistsButton = new javax.swing.JButton();
         albumsButton = new javax.swing.JButton();
         genresButton = new javax.swing.JButton();
         playlistsButton = new javax.swing.JButton();
+        brandYearLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         hamburguerMenu = new javax.swing.JMenu();
         fileMenu = new javax.swing.JMenu();
@@ -118,6 +177,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         playerPanel.setPreferredSize(new java.awt.Dimension(1080, 668));
 
         coverArtPreviousNextPanel.setMinimumSize(new java.awt.Dimension(900, 500));
+        coverArtPreviousNextPanel.setOpaque(false);
         coverArtPreviousNextPanel.setPreferredSize(new java.awt.Dimension(900, 500));
 
         previousTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -193,6 +253,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         progressSlider.setToolTipText("");
         progressSlider.setValue(0);
         progressSlider.setEnabled(false);
+        progressSlider.setOpaque(true);
 
         javax.swing.GroupLayout coverArtPreviousNextPanelLayout = new javax.swing.GroupLayout(coverArtPreviousNextPanel);
         coverArtPreviousNextPanel.setLayout(coverArtPreviousNextPanelLayout);
@@ -250,7 +311,6 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         menuPanel.setMaximumSize(new java.awt.Dimension(200, 32767));
         menuPanel.setMinimumSize(new java.awt.Dimension(200, 688));
         menuPanel.setPreferredSize(new java.awt.Dimension(200, 688));
-        menuPanel.setLayout(new javax.swing.BoxLayout(menuPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         brandLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         brandLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mvsic-player-brand.png"))); // NOI18N
@@ -266,18 +326,16 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 brandLabelMouseClicked(evt);
             }
         });
-        menuPanel.add(brandLabel);
 
         songsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/nota.png"))); // NOI18N
         songsButton.setText("Songs");
         songsButton.setToolTipText("<html><b>Loaded Songs</b></html>");
-        songsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        songsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         songsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         songsButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         songsButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
         songsButton.setMaximumSize(new java.awt.Dimension(200, 55));
         songsButton.setMinimumSize(new java.awt.Dimension(200, 55));
-        songsButton.setOpaque(true);
         songsButton.setPreferredSize(new java.awt.Dimension(200, 55));
         ((ImageIcon)songsButton.getIcon()).getImage().flush();
         songsButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -291,12 +349,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 songsButtonMouseExited(evt);
             }
         });
-        menuPanel.add(songsButton);
 
         artistsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/violinista.png"))); // NOI18N
         artistsButton.setText("Artists");
         artistsButton.setToolTipText("<html><b>Loaded Artists</b></html>");
-        artistsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        artistsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         artistsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         artistsButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         artistsButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -316,12 +373,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 artistsButtonMouseExited(evt);
             }
         });
-        menuPanel.add(artistsButton);
 
         albumsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/revista.png"))); // NOI18N
         albumsButton.setText("Albums");
         albumsButton.setToolTipText("<html><b>Loaded Albums</b></html>");
-        albumsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        albumsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         albumsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         albumsButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         albumsButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -341,12 +397,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 albumsButtonMouseExited(evt);
             }
         });
-        menuPanel.add(albumsButton);
 
         genresButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/jazz.png"))); // NOI18N
         genresButton.setText("Genres");
         genresButton.setToolTipText("<html><b>Loaded Genres</b></html>");
-        genresButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        genresButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         genresButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         genresButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         genresButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -366,12 +421,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 genresButtonMouseExited(evt);
             }
         });
-        menuPanel.add(genresButton);
 
         playlistsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/lista-de-reproduccion.png"))); // NOI18N
         playlistsButton.setText("Playlists");
         playlistsButton.setToolTipText("<html><b>Playlists</b></html>");
-        playlistsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        playlistsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         playlistsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         playlistsButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         playlistsButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -391,7 +445,46 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 playlistsButtonMouseExited(evt);
             }
         });
-        menuPanel.add(playlistsButton);
+
+        brandYearLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        brandYearLabel.setText("Mvsic Player - 2023");
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(brandLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(songsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(albumsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(genresButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(playlistsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(brandYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addComponent(brandLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(songsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(artistsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(albumsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(genresButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(playlistsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(brandYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         menuBar.setBorder(null);
         menuBar.setMaximumSize(new java.awt.Dimension(32767, 32));
@@ -436,6 +529,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
         languageMenu.setText("<html>Languague</html>");
         languageMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        languageMenu.setOpaque(true);
 
         spanishRadioButtonMenuItem.setSelected(true);
         spanishRadioButtonMenuItem.setText("<html><b><i>Español</i></b></html>");
@@ -543,7 +637,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
         );
 
         pack();
@@ -638,10 +732,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void songsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songsButtonMouseEntered
         // TODO add your handling code here:
+        songsButton.setBackground(_Colour.getFirstColor());
+        songsButton.setForeground(_Colour.getFirstFontColor());
     }//GEN-LAST:event_songsButtonMouseEntered
 
     private void songsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songsButtonMouseExited
         // TODO add your handling code here:
+        songsButton.setBackground(_Colour.getSecondColor());
+        songsButton.setForeground(_Colour.getSecondFontColor());
     }//GEN-LAST:event_songsButtonMouseExited
 
     private void artistsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistsButtonMouseClicked
@@ -650,10 +748,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void artistsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistsButtonMouseEntered
         // TODO add your handling code here:
+        artistsButton.setBackground(_Colour.getFirstColor());
+        artistsButton.setForeground(_Colour.getFirstFontColor());
     }//GEN-LAST:event_artistsButtonMouseEntered
 
     private void artistsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistsButtonMouseExited
         // TODO add your handling code here:
+        artistsButton.setBackground(_Colour.getSecondColor());
+        artistsButton.setForeground(_Colour.getSecondFontColor());
     }//GEN-LAST:event_artistsButtonMouseExited
 
     private void albumsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumsButtonMouseClicked
@@ -662,10 +764,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void albumsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumsButtonMouseEntered
         // TODO add your handling code here:
+        albumsButton.setBackground(_Colour.getFirstColor());
+        albumsButton.setForeground(_Colour.getFirstFontColor());
     }//GEN-LAST:event_albumsButtonMouseEntered
 
     private void albumsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumsButtonMouseExited
         // TODO add your handling code here:
+        albumsButton.setBackground(_Colour.getSecondColor());
+        albumsButton.setForeground(_Colour.getSecondFontColor());
     }//GEN-LAST:event_albumsButtonMouseExited
 
     private void genresButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genresButtonMouseClicked
@@ -674,10 +780,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void genresButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genresButtonMouseEntered
         // TODO add your handling code here:
+        genresButton.setBackground(_Colour.getFirstColor());
+        genresButton.setForeground(_Colour.getFirstFontColor());
     }//GEN-LAST:event_genresButtonMouseEntered
 
     private void genresButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genresButtonMouseExited
         // TODO add your handling code here:
+        genresButton.setBackground(_Colour.getSecondColor());
+        genresButton.setForeground(_Colour.getSecondFontColor());
     }//GEN-LAST:event_genresButtonMouseExited
 
     private void playlistsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsButtonMouseClicked
@@ -686,10 +796,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void playlistsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsButtonMouseEntered
         // TODO add your handling code here:
+        playlistsButton.setBackground(_Colour.getFirstColor());
+        playlistsButton.setForeground(_Colour.getFirstFontColor());
     }//GEN-LAST:event_playlistsButtonMouseEntered
 
     private void playlistsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playlistsButtonMouseExited
         // TODO add your handling code here:
+        playlistsButton.setBackground(_Colour.getSecondColor());
+        playlistsButton.setForeground(_Colour.getSecondFontColor());
     }//GEN-LAST:event_playlistsButtonMouseExited
 
     private void brandLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandLabelMouseClicked
@@ -718,6 +832,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel artistAlbumLabel;
     private javax.swing.JButton artistsButton;
     private javax.swing.JLabel brandLabel;
+    private javax.swing.JLabel brandYearLabel;
     private javax.swing.JLabel coverArtLabel;
     private javax.swing.JPanel coverArtPreviousNextPanel;
     private javax.swing.JLabel durationProgressLabel;
@@ -762,6 +877,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             setIconImage(iconImage);
             iconImage.flush();
             
+            Calendar calendar = Calendar.getInstance();
+            Integer year = calendar.get(Calendar.YEAR);
+            brandYearLabel.setText("Mvsic Player - ".concat(year.toString()));
+            
             //Set language:
             _LanguageText = new LanguageText();
             setLanguage(Language.SPANISH);
@@ -769,6 +888,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             //Set font type:
             _FontText = new FontText();
             setFontType(FontType.ROBOTO);
+            
+            setColour();
             
             //Hide menu panel:
             menuPanel.setVisible(false);
@@ -801,7 +922,6 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
         openFolderMenuItem.setText(_LanguageText.MenuItemOpenFolderText());
         openFolderMenuItem.setToolTipText(_LanguageText.MenuItemOpenFolderTooltipText());
-        
         
         //Labels:
         
@@ -872,6 +992,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
         openFilesMenuItem.setFont(menuFont);
         openFolderMenuItem.setFont(menuFont);
+        
+        brandYearLabel.setFont(menuFont);
 
         //Labels:
 
@@ -889,11 +1011,40 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         albumsButton.setFont(buttonFont);
         genresButton.setFont(buttonFont);
         playlistsButton.setFont(buttonFont);
+        progressSlider.setFont(buttonFont);
         
         //Specials
         Font specialFont = createdFont.deriveFont(24f);
         hamburguerMenu.setFont(specialFont);
         
-           
+    }
+    
+    private void setColour(){
+        
+        //Buttons:
+        albumsButton.setBackground(_Colour.getSecondColor());
+        artistsButton.setBackground(_Colour.getSecondColor());
+        genresButton.setBackground(_Colour.getSecondColor());
+        playlistsButton.setBackground(_Colour.getSecondColor());
+        songsButton.setBackground(_Colour.getSecondColor());
+        
+        albumsButton.setForeground(_Colour.getSecondFontColor());
+        artistsButton.setForeground(_Colour.getSecondFontColor());
+        genresButton.setForeground(_Colour.getSecondFontColor());
+        playlistsButton.setForeground(_Colour.getSecondFontColor());
+        songsButton.setForeground(_Colour.getSecondFontColor());
+        
+        brandYearLabel.setForeground(_Colour.getFirstFontColor());
+        
+        artistAlbumLabel.setForeground(_Colour.getFirstFontColor());
+        durationProgressLabel.setForeground(_Colour.getFirstFontColor());
+        titleLabel.setForeground(_Colour.getFirstFontColor());
+        
+        progressSlider.setBackground(new Color(0,0,0,0));
+        progressSlider.setForeground(_Colour.getFirstFontColor());
+                
+        previousTrackLabel.setForeground(_Colour.getThirdFontColor());
+        nextTrackLabel.setForeground(_Colour.getFirstFontColor());
+
     }
 }
