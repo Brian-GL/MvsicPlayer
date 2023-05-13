@@ -5,6 +5,7 @@
 package brian_gl.mvsicplayer.frames;
 
 import brian_gl.mvsicplayer.colour.Colour;
+import brian_gl.mvsicplayer.component.FileChooser;
 import brian_gl.mvsicplayer.font.FontText;
 import brian_gl.mvsicplayer.font.FontType;
 import brian_gl.mvsicplayer.lang.Language;
@@ -21,8 +22,12 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import player.AudioListPlayer;
+import utilities.Utilities;
 
 /**
  *
@@ -36,6 +41,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private FontText _FontText;
     /**Colour Class To Set In Interface*/
     private Colour _Colour;
+    /**Audio Player*/
+    private AudioListPlayer _AudioListPlayer;
     
     /**
      * Creates new form MusicPlayerFrame
@@ -504,15 +511,17 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         fileMenu.setToolTipText("");
         fileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        openFilesMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         openFilesMenuItem.setText("Open File(s)");
         openFilesMenuItem.setToolTipText("<html><i>Open some files to play</i></html>");
         openFilesMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                openFilesMenuItemMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                openFilesMenuItemMousePressed(evt);
             }
         });
         fileMenu.add(openFilesMenuItem);
 
+        openFolderMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         openFolderMenuItem.setText("Open Folder");
         openFolderMenuItem.setToolTipText("<html><i>Open files folder to play</i></html>");
         openFolderMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -646,6 +655,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
+        _AudioListPlayer.stop();
+        _AudioListPlayer.release();
         evt.getWindow().dispose(); System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
@@ -818,13 +829,44 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_previousTrackLabelMouseClicked
 
-    private void openFilesMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openFilesMenuItemMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_openFilesMenuItemMouseClicked
-
     private void openFolderMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openFolderMenuItemMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_openFolderMenuItemMouseClicked
+
+    private void openFilesMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openFilesMenuItemMousePressed
+        // TODO add your handling code here:
+        FileNameExtensionFilter filter;
+        int result;
+        File[] opened_Files;
+
+        FileChooser fileChooser = new FileChooser(Utilities.getMusicPath(),_FontText.getFont(), _LanguageText);
+        filter = new FileNameExtensionFilter(_LanguageText.FileNameExtensionFilterText(), "mp3", "flac", "wav", "ogg", "m4a","wma");
+        fileChooser.addChoosableFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(true);
+        fileChooser.setMultiSelectionEnabled(true);
+
+        result = fileChooser.showOpenDialog(this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                opened_Files = fileChooser.getSelectedFiles();
+                if (opened_Files != null) {
+
+                    if (opened_Files.length > 0) {
+                        String route;
+
+                        _AudioListPlayer.clearPlaylist();
+
+                        for (File open_File : opened_Files) {
+
+                            route = open_File.getAbsolutePath();
+                            _AudioListPlayer.addMedia(route);
+                        }
+
+                        _AudioListPlayer.play();
+                    }
+                }
+            }
+    }//GEN-LAST:event_openFilesMenuItemMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton albumsButton;
@@ -889,7 +931,12 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             _FontText = new FontText();
             setFontType(FontType.ROBOTO);
             
+            //Set colour interface:
             setColour();
+            
+            //Set audio list player:
+            _AudioListPlayer = new AudioListPlayer();
+            
             
             //Hide menu panel:
             menuPanel.setVisible(false);

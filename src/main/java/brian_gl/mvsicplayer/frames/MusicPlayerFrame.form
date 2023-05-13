@@ -48,15 +48,21 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="openFilesMenuItem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Open File(s)"/>
                 <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;i&gt;Open some files to play&lt;/i&gt;&lt;/html&gt;"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="openFilesMenuItemMouseClicked"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="openFilesMenuItemMousePressed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openFolderMenuItem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Open Folder"/>
                 <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;i&gt;Open files folder to play&lt;/i&gt;&lt;/html&gt;"/>
               </Properties>

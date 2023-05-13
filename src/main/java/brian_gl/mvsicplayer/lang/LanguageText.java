@@ -605,6 +605,66 @@ public class LanguageText {
     
     // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="File Chooser">
+    
+    public String FileChooserDialogTitleText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "Explorar Archivos";
+            break;
+            case ENGLISH:
+                word = "Explore Files";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String FileChooserApproveButtonText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "Seleccionar archivo(s) de música";
+            break;
+            case ENGLISH:
+                word = "Select music file(s)";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String FileNameExtensionFilterText(){
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "Archivos de música";
+            break;
+            case ENGLISH:
+                word = "Music Files";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    // </editor-fold>
+    
     /**
      * @return the actual language
      */
