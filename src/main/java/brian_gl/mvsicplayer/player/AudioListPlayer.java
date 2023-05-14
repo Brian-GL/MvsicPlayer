@@ -2,13 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package player;
+package brian_gl.mvsicplayer.player;
 
 import java.util.List;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventListener;
-import static uk.co.caprica.vlcj.player.base.State.PAUSED;
-import static uk.co.caprica.vlcj.player.base.State.STOPPED;
 import uk.co.caprica.vlcj.player.component.AudioListPlayerComponent;
 import uk.co.caprica.vlcj.player.list.MediaListPlayerEventListener;
 
@@ -31,10 +29,6 @@ public class AudioListPlayer {
         _Presets = new MediaPlayerFactory().equalizer().presets();
     }
 
-    public AudioListPlayerComponent getAudioListPlayer() {
-        return _AudioListPlayerComponent;
-    }
-    
     public boolean addMedia(String route){
         return _AudioListPlayerComponent.mediaListPlayer().list().media().add(route);
     }
@@ -43,11 +37,19 @@ public class AudioListPlayer {
         return _AudioListPlayerComponent.mediaListPlayer().list().media().clear();
     }
     
+    public boolean isEmptyPlaylist(){
+        return _AudioListPlayerComponent.mediaListPlayer().list().media().count() < 1;
+    }
+    
     public void play(){
         if(_AudioListPlayerComponent.mediaListPlayer().list().media().count() > 0
                 && !_AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
             _AudioListPlayerComponent.mediaListPlayer().controls().play();
         }
+    }
+    
+    public boolean isPlaying(){
+        return _AudioListPlayerComponent.mediaListPlayer().status().isPlaying();
     }
     
     public void pause(){
@@ -62,8 +64,15 @@ public class AudioListPlayer {
         if(_AudioListPlayerComponent.mediaListPlayer().list().media().count() > 0 && 
                 _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
             _AudioListPlayerComponent.mediaListPlayer().controls().stop();
-            
         }
+    }
+    
+    public boolean previous(){
+        return _AudioListPlayerComponent.mediaListPlayer().controls().playPrevious();
+    }
+    
+    public boolean next(){
+        return _AudioListPlayerComponent.mediaListPlayer().controls().playNext();
     }
     
     public void setEvent(MediaListPlayerEventListener listener){
@@ -74,11 +83,23 @@ public class AudioListPlayer {
         this._AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().events().addMediaPlayerEventListener(listener);
     }
     
-    public void release(){
-        this._AudioListPlayerComponent.release();
+    public float time(){
+        return _AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().status().time();   
+    }
+    
+    public long length(){
+        return _AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().status().length();
+    }
+    
+    public void setTime(long time){
+        _AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().controls().setTime(time);
     }
 
-    public List<String> getPresets() {
+    public List<String> presets() {
         return _Presets;
+    }
+    
+    public void release(){
+        this._AudioListPlayerComponent.release();
     }
 }

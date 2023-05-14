@@ -665,6 +665,30 @@ public class LanguageText {
     
     // </editor-fold>
     
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="Extras">
+    
+    public String MetadataUnknownText(){
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html>Desconocido</html>";
+            break;
+            case ENGLISH:
+                word = "<html>Unknown</html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    // </editor-fold>
+    
     /**
      * @return the actual language
      */

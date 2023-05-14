@@ -33,7 +33,7 @@ public class Colour {
      */
     public void setFirstColor(Color _firstColor) {
         this._firstColor = _firstColor;
-        this._firstFontColor = (_firstColor.getRed() >= 155 && _firstColor.getGreen() >= 155) ? Color.BLACK : Color.WHITE;
+        this._firstFontColor = (_firstColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
         
     }
 
@@ -49,7 +49,7 @@ public class Colour {
      */
     public void setSecondColor(Color _secondColor) {
         this._secondColor = _secondColor;
-        this._secondFontColor = (_secondColor.getRed() >= 155 && _secondColor.getGreen() >= 155) ? Color.BLACK : Color.WHITE;
+        this._secondFontColor = (_secondColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Colour {
      */
     public void setThirdColor(Color _thirdColor) {
         this._thirdColor = _thirdColor;
-        this._thirdFontColor = (_thirdColor.getRed() >= 155 && _thirdColor.getGreen() >= 155) ? Color.BLACK : Color.WHITE;
+        this._thirdFontColor = (_thirdColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
     }
 
    

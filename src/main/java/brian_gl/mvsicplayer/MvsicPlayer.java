@@ -5,7 +5,7 @@
 package brian_gl.mvsicplayer;
 
 import brian_gl.mvsicplayer.frames.MusicPlayerFrame;
-import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -24,7 +24,7 @@ public class MvsicPlayer {
         
         try {
             /* Set the FatDarkLaf look and feel */
-            FlatDarkLaf ui = new FlatDarkLaf();
+            FlatDarculaLaf ui = new FlatDarculaLaf();
             
             UIManager.setLookAndFeel(ui);
             
