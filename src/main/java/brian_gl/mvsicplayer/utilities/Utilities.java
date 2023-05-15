@@ -44,7 +44,7 @@ public class Utilities {
         int minutes = ((absolute % 3600) / 60);
         int seconds = (absolute % 60);
         String format = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        return concat("<html><i>", format, "</i></html>");
+        return concat("<html><b><i>", format, "</i><b></html>");
     }
     
     public static String bHtml(String value){

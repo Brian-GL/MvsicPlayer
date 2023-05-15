@@ -7,6 +7,7 @@ package brian_gl.mvsicplayer.player;
 import java.util.List;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventListener;
+import uk.co.caprica.vlcj.player.base.State;
 import uk.co.caprica.vlcj.player.component.AudioListPlayerComponent;
 import uk.co.caprica.vlcj.player.list.MediaListPlayerEventListener;
 
@@ -38,12 +39,16 @@ public class AudioListPlayer {
     }
     
     public boolean isEmptyPlaylist(){
-        return _AudioListPlayerComponent.mediaListPlayer().list().media().count() < 1;
+        return this.playListCount() < 1;
+    }
+    
+    public int playListCount(){
+        return _AudioListPlayerComponent.mediaListPlayer().list().media().count();
     }
     
     public void play(){
-        if(_AudioListPlayerComponent.mediaListPlayer().list().media().count() > 0
-                && !_AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
+        if(this.playListCount() > 0 && !_AudioListPlayerComponent.mediaListPlayer().status().isPlaying()
+                && !_AudioListPlayerComponent.mediaListPlayer().status().getMediaListPlayerState().equals(State.STOPPED)){
             _AudioListPlayerComponent.mediaListPlayer().controls().play();
         }
     }
@@ -53,16 +58,15 @@ public class AudioListPlayer {
     }
     
     public void pause(){
-        if(_AudioListPlayerComponent.mediaListPlayer().list().media().count() > 0
-                && _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
+        if(this.playListCount() > 0 && _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()
+            && _AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().status().canPause()){
             _AudioListPlayerComponent.mediaListPlayer().controls().setPause(true);
         }
     }
     
     public void stop(){
         
-        if(_AudioListPlayerComponent.mediaListPlayer().list().media().count() > 0 && 
-                _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
+        if(this.playListCount() > 0 && _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
             _AudioListPlayerComponent.mediaListPlayer().controls().stop();
         }
     }
@@ -93,6 +97,12 @@ public class AudioListPlayer {
     
     public void setTime(long time){
         _AudioListPlayerComponent.mediaListPlayer().mediaPlayer().mediaPlayer().controls().setTime(time);
+    }
+    
+    public void playIndex(int index){
+        if(this.playListCount() > index && index > -1){
+            _AudioListPlayerComponent.mediaListPlayer().controls().play(index);
+        }
     }
 
     public List<String> presets() {

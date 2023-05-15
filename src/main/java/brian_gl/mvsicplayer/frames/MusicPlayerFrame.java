@@ -38,6 +38,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Random;
 import javax.swing.event.ChangeEvent;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -136,6 +137,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         durationLabel = new javax.swing.JLabel();
         progressSlider = new javax.swing.JSlider();
         extraLabel = new javax.swing.JLabel();
+        playPauseLabel = new javax.swing.JLabel();
+        stopLabel = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
@@ -276,7 +279,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         titleLabel.setPreferredSize(new java.awt.Dimension(37, 24));
 
         artistAlbumLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        artistAlbumLabel.setText("<html>Artist - <i>Album</i></html>");
+        artistAlbumLabel.setText("<html><b>Artist - <i>Album</i></b></html>");
         artistAlbumLabel.setToolTipText("");
         artistAlbumLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         artistAlbumLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
@@ -284,7 +287,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         artistAlbumLabel.setPreferredSize(new java.awt.Dimension(37, 24));
 
         progressLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        progressLabel.setText("<html><i>00:00</i></html>");
+        progressLabel.setText("<html><i><b>00:00:00</b></i></html>");
         progressLabel.setToolTipText("");
         progressLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         progressLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
@@ -292,7 +295,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         progressLabel.setPreferredSize(new java.awt.Dimension(37, 24));
 
         durationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        durationLabel.setText("<html><i>00:00</i></html>");
+        durationLabel.setText("<html><i><b>00:00:00</b></i></html>");
         durationLabel.setToolTipText("");
         durationLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         durationLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
@@ -311,6 +314,34 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         extraLabel.setMinimumSize(new java.awt.Dimension(37, 24));
         extraLabel.setPreferredSize(new java.awt.Dimension(37, 24));
 
+        playPauseLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playPauseLabel.setText("<html><b>⏵</b></html>");
+        playPauseLabel.setToolTipText("");
+        playPauseLabel.setEnabled(false);
+        playPauseLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        playPauseLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
+        playPauseLabel.setMinimumSize(new java.awt.Dimension(37, 24));
+        playPauseLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        playPauseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                playPauseLabelMousePressed(evt);
+            }
+        });
+
+        stopLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        stopLabel.setText("<html><b>⏹</b></html>");
+        stopLabel.setToolTipText("");
+        stopLabel.setEnabled(false);
+        stopLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        stopLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
+        stopLabel.setMinimumSize(new java.awt.Dimension(37, 24));
+        stopLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        stopLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                stopLabelMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout coverArtPreviousNextPanelLayout = new javax.swing.GroupLayout(coverArtPreviousNextPanel);
         coverArtPreviousNextPanel.setLayout(coverArtPreviousNextPanelLayout);
         coverArtPreviousNextPanelLayout.setHorizontalGroup(
@@ -325,11 +356,15 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                     .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(coverArtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coverArtPreviousNextPanelLayout.createSequentialGroup()
-                        .addComponent(progressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(stopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(progressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(extraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(extraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(nextTrackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(96, Short.MAX_VALUE))
@@ -337,7 +372,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         coverArtPreviousNextPanelLayout.setVerticalGroup(
             coverArtPreviousNextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(coverArtPreviousNextPanelLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(coverArtPreviousNextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(coverArtLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(previousTrackLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -346,14 +381,16 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(artistAlbumLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(coverArtPreviousNextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(extraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(extraLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout playerPanelLayout = new javax.swing.GroupLayout(playerPanel);
@@ -934,6 +971,24 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_previousTrackLabelMousePressed
 
+    private void playPauseLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseLabelMousePressed
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            if(_AudioListPlayer.isPlaying()){
+                _AudioListPlayer.pause();
+            }else{
+                _AudioListPlayer.play();
+            }
+        }
+    }//GEN-LAST:event_playPauseLabelMousePressed
+
+    private void stopLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stopLabelMousePressed
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            _AudioListPlayer.stop();
+        }
+    }//GEN-LAST:event_stopLabelMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton albumsButton;
     private javax.swing.JRadioButtonMenuItem anuphanRadioButtonMenuItem;
@@ -963,6 +1018,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem openFilesMenuItem;
     private javax.swing.JMenuItem openFolderMenuItem;
     private javax.swing.JRadioButtonMenuItem openSansRadioButtonMenuItem;
+    private javax.swing.JLabel playPauseLabel;
     private javax.swing.JPanel playerPanel;
     private javax.swing.JButton playlistsButton;
     private javax.swing.JMenu preferencesMenu;
@@ -974,6 +1030,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem robotoRadioButtonMenuItem;
     private javax.swing.JButton songsButton;
     private javax.swing.JRadioButtonMenuItem spanishRadioButtonMenuItem;
+    private javax.swing.JLabel stopLabel;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -1028,6 +1085,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         } 
     }
     
+    // <editor-fold defaultstate="collapsed" desc="Setters">
+     
+    /**
+     * Sets software lang
+    */
     private void setLanguage(Language language){
         
          _LanguageText.setLanguage(language);
@@ -1054,10 +1116,12 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
         //Labels:
         
-        titleLabel.setText(_LanguageText.LabelTitleText());
-        titleLabel.setToolTipText(_LanguageText.LabelTitleTooltipText());
+        if(!_AudioListPlayer.isPlaying()){
+            titleLabel.setText(_LanguageText.LabelTitleText());
+            artistAlbumLabel.setText(_LanguageText.LabelArtistAlbumText());
+        }
         
-        artistAlbumLabel.setText(_LanguageText.LabelArtistAlbumText());
+        titleLabel.setToolTipText(_LanguageText.LabelTitleTooltipText());
         artistAlbumLabel.setToolTipText(_LanguageText.LabelArtistAlbumTooltipText());
         
         progressLabel.setToolTipText(_LanguageText.LabelDurationProgressTooltipText());
@@ -1067,6 +1131,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         nextTrackLabel.setToolTipText(_LanguageText.LabelNextTrackTooltipText());
         
         brandLabel.setToolTipText(_LanguageText.LabelBrandTooltipText());
+        
+        playPauseLabel.setToolTipText(_LanguageText.LabelPlayPauseTooltipText());
+        
+        stopLabel.setToolTipText(_LanguageText.LabelStopTooltipText());
         
         //Buttons:
         
@@ -1087,6 +1155,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
     }
     
+    
+    /**
+     * Sets software font
+    */
     private void setFontType(FontType fontType){
         
         _FontText.setFontType(fontType);
@@ -1130,6 +1202,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         titleLabel.setFont(labelFont);
         artistAlbumLabel.setFont(labelFont);
         durationLabel.setFont(menuItemFont);
+        playPauseLabel.setFont(menuItemFont);
+        stopLabel.setFont(menuItemFont);
         extraLabel.setFont(menuItemFont);
         progressLabel.setFont(menuItemFont);
         
@@ -1149,6 +1223,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Sets software colors
+    */
     private void setColour(){
         
         //Buttons:
@@ -1171,7 +1248,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         extraLabel.setForeground(_Colour.getFirstFontColor());
         durationLabel.setForeground(_Colour.getFirstFontColor());
         titleLabel.setForeground(_Colour.getFirstFontColor());
+        playPauseLabel.setForeground(_Colour.getFirstFontColor());
+        stopLabel.setForeground(_Colour.getFirstFontColor());
         
+        progressSlider.setBackground(_Colour.getFirstColor());
         progressSlider.setForeground(_Colour.getFirstFontColor());
                 
         previousTrackLabel.setForeground(_Colour.getThirdFontColor());
@@ -1179,18 +1259,20 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
     }
     
+    /**
+     * Sets palyer events
+    */
     private void setPlayerEvents(){
         
         MediaPlayerEventListener mediaPlayerEventListener = new MediaPlayerEventListener() {
                 @Override
                 public void mediaChanged(MediaPlayer mediaPlayer, MediaRef media) {
-                    enableComponentsStopPlaying();
+                    enableDisableComponentsPlaying(false);
 
                     Media mediaInfo = media.duplicateMedia();
                     
-                    if(mediaInfo.info() != null && mediaInfo.meta() != null){
-                        System.out.println(mediaInfo.meta().get(Meta.URL));
-                        loadMetadata(mediaInfo.info().mrl(), mediaInfo.meta().get(Meta.TITLE));
+                    if(mediaInfo.info() != null){
+                        loadMetadata(mediaInfo.info().mrl());
                     }
                     
                     mediaInfo.release();
@@ -1203,10 +1285,15 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 public void buffering(MediaPlayer mediaPlayer, float newCache) {}
 
                 @Override
-                public void playing(MediaPlayer mediaPlayer) { enableComponentsStartPlaying();}
+                public void playing(MediaPlayer mediaPlayer) { 
+                    enableDisableComponentsPlaying(true);
+                    playPauseLabel.setText("<html><b>⏸</b></html>");
+                }
 
                 @Override
-                public void paused(MediaPlayer mediaPlayer) {}
+                public void paused(MediaPlayer mediaPlayer) {
+                    playPauseLabel.setText("<html><b>⏵</b></html>");
+                }
 
                 @Override
                 public void stopped(MediaPlayer mediaPlayer) {}
@@ -1302,8 +1389,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             
         MediaListPlayerEventListener mediaListPlayerEventListener = new MediaListPlayerEventListener() {
             @Override
-            public void mediaListPlayerFinished(MediaListPlayer mediaListPlayer) {
-                enableComponentsStopPlaying();
+            public void mediaListPlayerFinished(final MediaListPlayer mediaListPlayer) {
+                mediaListPlayer.submit(() -> {
+                    mediaListPlayer.controls().play(0);
+                });
             }
 
             @Override
@@ -1311,7 +1400,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
             @Override
             public void stopped(MediaListPlayer mediaListPlayer) {
-                enableComponentsStopPlaying();
+                enableDisableComponentsPlaying(false); 
+                cleanInfo();
+                _AudioListPlayer.clearPlaylist();
             }
         };
 
@@ -1358,22 +1449,45 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         });
     
     }
-
-    private void enableComponentsStartPlaying(){
+    
+    // </editor-fold>
+    
+    /**
+    * Cleans labels and cover art when player stops or finalizes
+    */
+    private void cleanInfo(){
+        titleLabel.setText("");
+        artistAlbumLabel.setText("");
+        durationLabel.setText("");
+        progressLabel.setText("");
+        progressSlider.setValue(0);
+        coverArtLabel.setIcon(null);
+        _Colour.setFirstColor(Color.BLACK);
+        _Colour.setSecondColor(Color.MAGENTA);
+        _Colour.setThirdColor(Color.BLUE);
+        setColour();
+        this.repaint();
+    }
+    
+    /**
+     * Sets component enabling when music player is playing or stopping
+     * @param isEnable: enable value. True for enable, false for disable
+     */
+    private void enableDisableComponentsPlaying(boolean isEnable){
         
-        progressSlider.setEnabled(true);
-        nextTrackLabel.setEnabled(true);
-        previousTrackLabel.setEnabled(true);
+        progressSlider.setEnabled(isEnable);
+        nextTrackLabel.setEnabled(isEnable);
+        previousTrackLabel.setEnabled(isEnable);
+        playPauseLabel.setEnabled(isEnable);
+        stopLabel.setEnabled(isEnable);
         
     }
     
-    private void enableComponentsStopPlaying(){
-        progressSlider.setEnabled(false);
-        nextTrackLabel.setEnabled(false);
-        previousTrackLabel.setEnabled(false);
-    }
-    
-    private void loadMetadata(String source, String filename){
+    /**
+     * Sets metadata info in view
+     * @param source: URI source file to get metadata
+     */
+    private void loadMetadata(String source){
         
         try {
             URI uriFile = new URI(source);
@@ -1391,7 +1505,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                     String album = tag.getFirst(FieldKey.ALBUM);
                     
                     titleLabel.setText(Utilities.bHtml(title));
-                    artistAlbumLabel.setText(Utilities.concat("<html>", artist, " - <i>", album, "</i></html>" ));
+                    artistAlbumLabel.setText(Utilities.concat("<html><b>", artist, " - <i>", album, "</i></b></html>" ));
                     
                     Artwork artwork = tag.getFirstArtwork();
                     
@@ -1405,16 +1519,25 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                             coverArt = Utilities.resize(coverArt, coverArtSize.width, coverArtSize.height);
 
                             if(coverArt != null){
-                                int[][] palette =  ColorThief.getPalette(coverArt,3);
+                                int[][] palette =  ColorThief.getPalette(coverArt,5);
 
-                                int[] color = palette[0];
-                                _Colour.setFirstColor(new Color(color[0],color[1],color[2]));
+                                Random rand = new Random(System.currentTimeMillis());
+                                
+                                int[] colorPalette = palette[0];
+                                Color color = new Color(colorPalette[0], colorPalette[1], colorPalette[2]);
+                                _Colour.setFirstColor(color);
 
-                                color = palette[1];
-                                _Colour.setSecondColor(new Color(color[0],color[1],color[2]));
+                                int index = rand.nextInt(2) + 1;
+                                colorPalette = palette[index];
+                                
+                                color = new Color(colorPalette[0], colorPalette[1], colorPalette[2]);
+                                _Colour.setSecondColor(color);
 
-                                color = palette[2];
-                                _Colour.setThirdColor(new Color(color[0],color[1],color[2]));
+                                index = rand.nextInt(2) + 2;
+                                colorPalette = palette[index];
+                                
+                                color = new Color(colorPalette[0], colorPalette[1], colorPalette[2]);
+                                _Colour.setThirdColor(color);
 
                                 setColour();
                                 this.repaint();
@@ -1424,18 +1547,21 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                                 cover.getImage().flush();
                                 coverArt.flush();
                             }
-
                         }
-
+                    } else{
+                        coverArtLabel.setIcon(null);
+                        _Colour.setFirstColor(Color.BLACK);
+                        _Colour.setSecondColor(Color.MAGENTA);
+                        _Colour.setThirdColor(Color.BLUE);
+                        setColour();
+                        this.repaint();
                     }
-
                 }
                 else{
-                    titleLabel.setText(Utilities.bHtml(filename));
-                    artistAlbumLabel.setText(Utilities.iHtml(_LanguageText.MetadataUnknownText()));
+                    titleLabel.setText(Utilities.bHtml(musicFile.getName()));
+                    artistAlbumLabel.setText(Utilities.concat("<html><b><i>",_LanguageText.MetadataUnknownText(),"</i></b></html>"));
                 }
             }
-            
         } catch (URISyntaxException | CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException ex) {
             //ERRROR MESSAGE
         }

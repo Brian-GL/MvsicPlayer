@@ -16,8 +16,8 @@ public class Colour {
     private Color _firstFontColor, _secondFontColor, _thirdFontColor;
 
     public Colour() {
-        setFirstColor(Color.MAGENTA);
-        setSecondColor(Color.BLACK);
+        setFirstColor(Color.BLACK);
+        setSecondColor(Color.MAGENTA);
         setThirdColor(Color.BLUE);
     }
 

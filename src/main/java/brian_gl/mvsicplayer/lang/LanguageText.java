@@ -171,6 +171,44 @@ public class LanguageText {
         return word;
     }
     
+    public String LabelPlayPauseTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><b>Reproducir / Pausar</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Play / Pause</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
+    public String LabelStopTooltipText(){
+        
+        String word;
+        
+        switch(getLanguage()){
+            case SPANISH:
+                word = "<html><b>Detener reproducción</i></html>";
+            break;
+            case ENGLISH:
+                word = "<html><i>Stop player</i></html>";
+            break;
+            default:
+                word = "?";
+            break;
+        }
+        
+        return word;
+    }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Menu Items">
@@ -664,8 +702,6 @@ public class LanguageText {
     }
     
     // </editor-fold>
-    
-    
     
     // <editor-fold defaultstate="collapsed" desc="Extras">
     
