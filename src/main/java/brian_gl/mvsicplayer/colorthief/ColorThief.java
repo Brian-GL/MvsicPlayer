@@ -166,15 +166,10 @@ public class ColorThief {
 
         int[][] pixelArray;
 
-        switch (sourceImage.getType()) {
-        case BufferedImage.TYPE_3BYTE_BGR:
-        case BufferedImage.TYPE_4BYTE_ABGR:
-            pixelArray = getPixelsFast(sourceImage, quality, ignoreWhite);
-            break;
-
-        default:
-            pixelArray = getPixelsSlow(sourceImage, quality, ignoreWhite);
-        }
+        pixelArray = switch (sourceImage.getType()) {
+            case BufferedImage.TYPE_3BYTE_BGR, BufferedImage.TYPE_4BYTE_ABGR -> getPixelsFast(sourceImage, quality, ignoreWhite);
+            default -> getPixelsSlow(sourceImage, quality, ignoreWhite);
+        };
 
         // Send array to quantize function which clusters values using median cut algorithm
         CMap cmap = MMCQ.quantize(pixelArray, colorCount);

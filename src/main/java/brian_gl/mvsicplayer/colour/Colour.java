@@ -12,14 +12,10 @@ import java.awt.Color;
  */
 public class Colour {
 
-    private Color _firstColor, _secondColor, _thirdColor;
-    private Color _firstFontColor, _secondFontColor, _thirdFontColor;
+    private Color _firstColor, _secondColor, _thirdColor, _fourthColor;
+    private Color _firstFontColor, _secondFontColor, _thirdFontColor, _fourthFontColor;
 
-    public Colour() {
-        setFirstColor(Color.BLACK);
-        setSecondColor(Color.MAGENTA);
-        setThirdColor(Color.BLUE);
-    }
+    public Colour() {this.Reset();}
 
     /**
      * @return the _firstColor
@@ -67,7 +63,21 @@ public class Colour {
         this._thirdFontColor = (_thirdColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
     }
 
-   
+     /**
+     * @return the _fourthColor
+     */
+    public Color getFourthColor() {
+        return _fourthColor;
+    }
+
+    /**
+     * @param _fourthColor the _fourthColor to set
+     */
+    public void setFourthColor(Color _fourthColor) {
+        this._fourthColor = _fourthColor;
+        this._fourthFontColor = (_fourthColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
+    }
+    
     /**
      * @return the _firstFontColor
      */
@@ -88,6 +98,26 @@ public class Colour {
     public Color getThirdFontColor() {
         return _thirdFontColor;
     }
-
+    
+     /**
+     * @return the _fourthFontColor
+     */
+    public Color getFourthFontColor() {
+        return _fourthFontColor;
+    }
+    
+    /**
+    * Sets all colors to basic values
+    */
+    public void Reset(){
+        _firstColor = Color.BLACK;
+        _secondColor = Color.BLACK;
+        _thirdColor = Color.BLACK;
+        _fourthColor= Color.WHITE;
+        _firstFontColor = (_firstColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
+        _secondFontColor = (_secondColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
+        _thirdFontColor = (_thirdColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
+        _fourthFontColor = (_fourthColor.getRed() >= 155) ? Color.BLACK : Color.WHITE;
+    }
 
 }

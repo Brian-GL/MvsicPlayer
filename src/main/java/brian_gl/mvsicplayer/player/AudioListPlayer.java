@@ -17,8 +17,8 @@ import uk.co.caprica.vlcj.player.list.MediaListPlayerEventListener;
  */
 public class AudioListPlayer {
     
-    private AudioListPlayerComponent _AudioListPlayerComponent;
-    private List<String> _Presets;
+    private final AudioListPlayerComponent _AudioListPlayerComponent;
+    private final List<String> _Presets;
     
     public AudioListPlayer() throws UnsatisfiedLinkError{
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
