@@ -80,8 +80,7 @@ public class MMCQ {
 
         @Override
         public String toString() {
-            return "r1: " + r1 + " / r2: " + r2 + " / g1: " + g1 + " / g2: " + g2 + " / b1: " + b1
-                    + " / b2: " + b2;
+            return "r1: " + r1 + " / r2: " + r2 + " / g1: " + g1 + " / g2: " + g2 + " / b1: " + b1 + " / b2: " + b2;
         }
 
         public int volume(boolean force) {
@@ -113,7 +112,8 @@ public class MMCQ {
         }
 
         @Override
-        public VBox clone() {
+        @SuppressWarnings("CloneDoesntCallSuperClone")
+        public VBox clone() throws CloneNotSupportedException {
             return new VBox(r1, r2, g1, g2, b1, b2, histo);
         }
 
@@ -277,7 +277,7 @@ public class MMCQ {
         return new VBox(rmin, rmax, gmin, gmax, bmin, bmax, histo);
     }
 
-    private static VBox[] medianCutApply(int[] histo, VBox vbox) {
+    private static VBox[] medianCutApply(int[] histo, VBox vbox) throws CloneNotSupportedException {
         if (vbox.count(false) == 0) {
             return null;
         }
@@ -357,7 +357,7 @@ public class MMCQ {
             VBox vbox,
             int[] partialsum,
             int[] lookaheadsum,
-            int total) {
+            int total) throws CloneNotSupportedException {
         int vbox_dim1;
         int vbox_dim2;
 
@@ -429,7 +429,7 @@ public class MMCQ {
         throw new RuntimeException("VBox can't be cut");
     }
 
-    public static CMap quantize(int[][] pixels, int maxcolors) {
+    public static CMap quantize(int[][] pixels, int maxcolors) throws CloneNotSupportedException, CloneNotSupportedException {
         // short-circuit
         if (pixels.length == 0 || maxcolors < 2 || maxcolors > 256) {
             return null;
@@ -471,7 +471,7 @@ public class MMCQ {
     /**
      * Inner function to do the iteration.
      */
-    private static void iter(List<VBox> lh, Comparator<VBox> comparator, int target, int[] histo) {
+    private static void iter(List<VBox> lh, Comparator<VBox> comparator, int target, int[] histo) throws CloneNotSupportedException {
         int niters = 0;
         VBox vbox;
 
@@ -510,22 +510,18 @@ public class MMCQ {
 
     private static final Comparator<VBox> COMPARATOR_COUNT = (VBox a, VBox b) -> a.count(false) - b.count(false);
 
-    private static final Comparator<VBox> COMPARATOR_PRODUCT = new Comparator<VBox>() {
-        @Override
-        public int compare(VBox a, VBox b) {
-            int aCount = a.count(false);
-            int bCount = b.count(false);
-            int aVolume = a.volume(false);
-            int bVolume = b.volume(false);
-
-            // If count is 0 for both (or the same), sort by volume
-            if (aCount == bCount) {
-                return aVolume - bVolume;
-            }
-
-            // Otherwise sort by products
-            return Long.compare((long) aCount * aVolume, (long) bCount * bVolume);
+    private static final Comparator<VBox> COMPARATOR_PRODUCT = (VBox a, VBox b) -> {
+        int aCount = a.count(false);
+        int bCount = b.count(false);
+        int aVolume = a.volume(false);
+        int bVolume = b.volume(false);
+        
+        // If count is 0 for both (or the same), sort by volume
+        if (aCount == bCount) {
+            return aVolume - bVolume;
         }
+        
+        // Otherwise sort by products
+        return Long.compare((long) aCount * aVolume, (long) bCount * bVolume);
     };
-
 }

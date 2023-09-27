@@ -10,7 +10,7 @@ import java.awt.Color;
  *
  * @author LENOVO
  */
-public class Colour {
+public final class Colour {
 
     private Color _firstColor, _secondColor, _thirdColor, _fourthColor;
     private Color _firstFontColor, _secondFontColor, _thirdFontColor, _fourthFontColor;

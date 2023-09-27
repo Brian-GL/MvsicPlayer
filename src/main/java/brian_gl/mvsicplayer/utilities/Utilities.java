@@ -48,11 +48,11 @@ public class Utilities {
     }
     
     public static String bHtml(String value){
-        return concat("<html><b>", value, "</b></html>");
+        return value != null && !value.isBlank() ? concat("<html><b>", value, "</b></html>") : "<html><b>?</b></html>";
     }
     
     public static String iHtml(String value){
-        return concat("<html><i>", value, "</i></html>");
+        return value != null && !value.isBlank() ? concat("<html><i>", value, "</i></html>") : "<html><i>?</i></html>";
     }
     
     public static String concat(String cadena, String... args) {

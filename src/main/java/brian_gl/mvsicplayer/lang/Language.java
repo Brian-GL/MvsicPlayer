@@ -9,7 +9,6 @@ package brian_gl.mvsicplayer.lang;
  * @author LENOVO
  */
 public enum Language {
-    
     SPANISH,
     ENGLISH
 }

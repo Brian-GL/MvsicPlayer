@@ -15,7 +15,6 @@
  * Lokesh Dhakar - for the original Color Thief JavaScript version
  * available at http://lokeshdhakar.com/projects/color-thief/
  */
-
 package brian_gl.mvsicplayer.colorthief;
 
 public class RGBUtil {
@@ -80,5 +79,4 @@ public class RGBUtil {
         }
         return rgbArray;
     }
-
 }

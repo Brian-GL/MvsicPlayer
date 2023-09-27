@@ -36,8 +36,9 @@ public class ColorThief {
      *            the source image
      *
      * @return the dominant color as RGB array
+     * @throws java.lang.CloneNotSupportedException
      */
-    public static int[] getColor(BufferedImage sourceImage) {
+    public static int[] getColor(BufferedImage sourceImage) throws CloneNotSupportedException {
         int[][] palette = getPalette(sourceImage, 5);
         if (palette == null) {
             return null;
@@ -60,10 +61,11 @@ public class ColorThief {
      *            if <code>true</code>, white pixels are ignored
      *
      * @return the dominant color as RGB array
+     * @throws java.lang.CloneNotSupportedException
      * @throws IllegalArgumentException
      *             if quality is &lt; 1
      */
-    public static int[] getColor(BufferedImage sourceImage, int quality, boolean ignoreWhite) {
+    public static int[] getColor(BufferedImage sourceImage, int quality, boolean ignoreWhite) throws CloneNotSupportedException {
         int[][] palette = getPalette(sourceImage, 5, quality, ignoreWhite);
         if (palette == null) {
             return null;
@@ -81,8 +83,9 @@ public class ColorThief {
      *            the size of the palette; the number of colors returned
      * 
      * @return the palette as array of RGB arrays
+     * @throws java.lang.CloneNotSupportedException
      */
-    public static int[][] getPalette(BufferedImage sourceImage, int colorCount) {
+    public static int[][] getPalette(BufferedImage sourceImage, int colorCount) throws CloneNotSupportedException {
         CMap cmap = getColorMap(sourceImage, colorCount);
         if (cmap == null) {
             return null;
@@ -105,6 +108,7 @@ public class ColorThief {
      *            if <code>true</code>, white pixels are ignored
      * 
      * @return the palette as array of RGB arrays
+     * @throws java.lang.CloneNotSupportedException
      * @throws IllegalArgumentException
      *             if quality is &lt; 1
      */
@@ -112,7 +116,7 @@ public class ColorThief {
             BufferedImage sourceImage,
             int colorCount,
             int quality,
-            boolean ignoreWhite) {
+            boolean ignoreWhite) throws CloneNotSupportedException {
         CMap cmap = getColorMap(sourceImage, colorCount, quality, ignoreWhite);
         if (cmap == null) {
             return null;
@@ -129,8 +133,9 @@ public class ColorThief {
      *            the size of the palette; the number of colors returned (minimum 2, maximum 256)
      * 
      * @return the color map
+     * @throws java.lang.CloneNotSupportedException
      */
-    public static CMap getColorMap(BufferedImage sourceImage, int colorCount) {
+    public static CMap getColorMap(BufferedImage sourceImage, int colorCount) throws CloneNotSupportedException {
         return getColorMap(sourceImage, colorCount, DEFAULT_QUALITY, DEFAULT_IGNORE_WHITE);
     }
 
@@ -149,6 +154,7 @@ public class ColorThief {
      *            if <code>true</code>, white pixels are ignored
      * 
      * @return the color map
+     * @throws java.lang.CloneNotSupportedException
      * @throws IllegalArgumentException
      *             if quality is &lt; 1
      */
@@ -156,7 +162,7 @@ public class ColorThief {
             BufferedImage sourceImage,
             int colorCount,
             int quality,
-            boolean ignoreWhite) {
+            boolean ignoreWhite) throws CloneNotSupportedException {
         if (colorCount < 2 || colorCount > 256) {
             throw new IllegalArgumentException("Specified colorCount must be between 2 and 256.");
         }

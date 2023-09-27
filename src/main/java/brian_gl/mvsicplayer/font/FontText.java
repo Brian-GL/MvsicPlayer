@@ -88,36 +88,16 @@ public class FontText {
     }
     
     public Font getFont(){
-        Font font;
-        switch (_FontType) {
-            case ANUPHAN:
-                font = Anuphan;
-                break;
-            case FIRA_SANS:
-                font = FiraSans;
-                break;
-            case INTER:
-                font = Inter;
-                break;
-            case MONTSERRAT:
-                font = Montserrat;
-                break;
-            case OPEN_SANS:
-                font = OpenSans;
-                break;
-            case QUICKSAND:
-                font = Quicksand;
-                break;
-            case RALEWAY:
-                font = Raleway;
-                break;
-            case ROBOTO:
-                font = Roboto;
-                break;
-            default:
-                font = null;
-        }
-        
-        return font;
+        return switch (_FontType) {
+            case ANUPHAN -> Anuphan;
+            case FIRA_SANS -> FiraSans;
+            case INTER -> Inter;
+            case MONTSERRAT -> Montserrat;
+            case OPEN_SANS -> OpenSans;
+            case QUICKSAND -> Quicksand;
+            case RALEWAY -> Raleway;
+            case ROBOTO -> Roboto;
+            default -> null;
+        };
     }
 }

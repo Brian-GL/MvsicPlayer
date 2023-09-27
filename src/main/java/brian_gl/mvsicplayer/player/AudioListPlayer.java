@@ -42,13 +42,12 @@ public class AudioListPlayer {
         return this.playListCount() < 1;
     }
     
-    public int playListCount(){
+    public Integer playListCount(){
         return _AudioListPlayerComponent.mediaListPlayer().list().media().count();
     }
     
     public void play(){
-        if(this.playListCount() > 0 && !_AudioListPlayerComponent.mediaListPlayer().status().isPlaying()
-                && !_AudioListPlayerComponent.mediaListPlayer().status().getMediaListPlayerState().equals(State.STOPPED)){
+        if(this.playListCount() > 0 && !_AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
             _AudioListPlayerComponent.mediaListPlayer().controls().play();
         }
     }
@@ -65,7 +64,6 @@ public class AudioListPlayer {
     }
     
     public void stop(){
-        
         if(this.playListCount() > 0 && _AudioListPlayerComponent.mediaListPlayer().status().isPlaying()){
             _AudioListPlayerComponent.mediaListPlayer().controls().stop();
         }

@@ -72,6 +72,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private FileChooser _FileChooser;
     /**Flag mouse auxiliar*/
     private boolean flagMouseAuxiliar;
+    /**Tracklist count*/
+    private Integer _TrackCount;
     
     /**
      * Creates new form MusicPlayerFrame
@@ -129,6 +131,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         coverArtLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
         artistAlbumLabel = new javax.swing.JLabel();
+        optionsLabel = new javax.swing.JLabel();
+        playerOptionsLabel = new javax.swing.JLabel();
         interfacePanel = new javax.swing.JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
@@ -162,6 +166,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         progressSlider = new javax.swing.JSlider();
         playPauseLabel = new javax.swing.JLabel();
         stopLabel = new javax.swing.JLabel();
+        genreLabel = new javax.swing.JLabel();
+        yearLabel = new javax.swing.JLabel();
+        previousTrackLabel = new javax.swing.JLabel();
+        nextTrackLabel = new javax.swing.JLabel();
+        trackCountLabel = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
@@ -190,7 +199,6 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         playlistsButton = new javax.swing.JButton();
         brandYearLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
-        hamburguerMenu = new javax.swing.JMenu();
         fileMenu = new javax.swing.JMenu();
         openFilesMenuItem = new javax.swing.JMenuItem();
         openFolderMenuItem = new javax.swing.JMenuItem();
@@ -234,7 +242,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         });
 
         mainPanel.setMinimumSize(new java.awt.Dimension(1080, 668));
-        mainPanel.setPreferredSize(new java.awt.Dimension(1080, 668));
+        mainPanel.setPreferredSize(new java.awt.Dimension(1080, 688));
         mainPanel.setLayout(new java.awt.CardLayout());
 
         playerPanel.setMinimumSize(new java.awt.Dimension(1080, 688));
@@ -257,40 +265,75 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         titleLabel.setToolTipText("");
         titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         titleLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
-        titleLabel.setMinimumSize(new java.awt.Dimension(37, 24));
-        titleLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        titleLabel.setMinimumSize(new java.awt.Dimension(490, 24));
+        titleLabel.setPreferredSize(new java.awt.Dimension(490, 24));
 
         artistAlbumLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         artistAlbumLabel.setText("<html><b>Artist - <i>Album</i></b></html>");
         artistAlbumLabel.setToolTipText("");
         artistAlbumLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         artistAlbumLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
-        artistAlbumLabel.setMinimumSize(new java.awt.Dimension(37, 24));
-        artistAlbumLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        artistAlbumLabel.setMinimumSize(new java.awt.Dimension(550, 24));
+        artistAlbumLabel.setPreferredSize(new java.awt.Dimension(550, 24));
+
+        optionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        optionsLabel.setText("<html><b>☰</b></html>");
+        optionsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        optionsLabel.setMaximumSize(new java.awt.Dimension(24, 24));
+        optionsLabel.setMinimumSize(new java.awt.Dimension(24, 24));
+        optionsLabel.setPreferredSize(new java.awt.Dimension(24, 24));
+        optionsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                optionsLabelMouseClicked(evt);
+            }
+        });
+
+        playerOptionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playerOptionsLabel.setText("<html><b>▷</b></html>");
+        playerOptionsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        playerOptionsLabel.setMaximumSize(new java.awt.Dimension(24, 24));
+        playerOptionsLabel.setMinimumSize(new java.awt.Dimension(24, 24));
+        playerOptionsLabel.setPreferredSize(new java.awt.Dimension(24, 24));
+        playerOptionsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                playerOptionsLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout coverArtPanelLayout = new javax.swing.GroupLayout(coverArtPanel);
         coverArtPanel.setLayout(coverArtPanelLayout);
         coverArtPanelLayout.setHorizontalGroup(
             coverArtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coverArtPanelLayout.createSequentialGroup()
+            .addGroup(coverArtPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(coverArtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(coverArtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(artistAlbumLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(coverArtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(coverArtLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistAlbumLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coverArtPanelLayout.createSequentialGroup()
+                        .addComponent(optionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playerOptionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         coverArtPanelLayout.setVerticalGroup(
             coverArtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(coverArtPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, coverArtPanelLayout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(coverArtLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(coverArtPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(playerOptionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(optionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(artistAlbumLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
+
+        optionsLabel.getAccessibleContext().setAccessibleName("OptionsLabel");
+        playerOptionsLabel.getAccessibleContext().setAccessibleName("playerOptionsLabel");
 
         interfacePanel.setBackground(new java.awt.Color(255, 255, 255));
         interfacePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -319,13 +362,14 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         progressSlider.setEnabled(false);
 
         playPauseLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playPauseLabel.setText("<html><b>⏵</b></html>");
+        playPauseLabel.setText("<html><b>▶</b></html>");
         playPauseLabel.setToolTipText("");
         playPauseLabel.setEnabled(false);
         playPauseLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        playPauseLabel.setIconTextGap(3);
         playPauseLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
-        playPauseLabel.setMinimumSize(new java.awt.Dimension(37, 24));
-        playPauseLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        playPauseLabel.setMinimumSize(new java.awt.Dimension(48, 48));
+        playPauseLabel.setPreferredSize(new java.awt.Dimension(48, 48));
         playPauseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 playPauseLabelMousePressed(evt);
@@ -338,40 +382,105 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         stopLabel.setEnabled(false);
         stopLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         stopLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
-        stopLabel.setMinimumSize(new java.awt.Dimension(37, 24));
-        stopLabel.setPreferredSize(new java.awt.Dimension(37, 24));
+        stopLabel.setMinimumSize(new java.awt.Dimension(48, 48));
+        stopLabel.setPreferredSize(new java.awt.Dimension(48, 48));
         stopLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 stopLabelMousePressed(evt);
             }
         });
 
+        genreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        genreLabel.setText("<html><b>Genre</b></html>");
+        genreLabel.setMinimumSize(new java.awt.Dimension(464, 24));
+        genreLabel.setPreferredSize(new java.awt.Dimension(464, 24));
+
+        yearLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        yearLabel.setText("<html><i>Year</i></html>");
+        yearLabel.setToolTipText("");
+        yearLabel.setMinimumSize(new java.awt.Dimension(464, 24));
+        yearLabel.setPreferredSize(new java.awt.Dimension(464, 24));
+
+        previousTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        previousTrackLabel.setText("<html><b>«</b></html>");
+        previousTrackLabel.setToolTipText("");
+        previousTrackLabel.setEnabled(false);
+        previousTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        previousTrackLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
+        previousTrackLabel.setMinimumSize(new java.awt.Dimension(48, 48));
+        previousTrackLabel.setPreferredSize(new java.awt.Dimension(48, 48));
+        previousTrackLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                previousTrackLabelMouseClicked(evt);
+            }
+        });
+
+        nextTrackLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nextTrackLabel.setText("<html><b>»</b></html>");
+        nextTrackLabel.setToolTipText("");
+        nextTrackLabel.setEnabled(false);
+        nextTrackLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nextTrackLabel.setMaximumSize(new java.awt.Dimension(32780, 40));
+        nextTrackLabel.setMinimumSize(new java.awt.Dimension(48, 48));
+        nextTrackLabel.setPreferredSize(new java.awt.Dimension(48, 48));
+        nextTrackLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextTrackLabelMouseClicked(evt);
+            }
+        });
+
+        trackCountLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        trackCountLabel.setText("<html><b><i>0 / 0</i></b></html>");
+        trackCountLabel.setToolTipText("");
+        trackCountLabel.setMinimumSize(new java.awt.Dimension(464, 24));
+        trackCountLabel.setPreferredSize(new java.awt.Dimension(464, 24));
+
         javax.swing.GroupLayout interfacePanelLayout = new javax.swing.GroupLayout(interfacePanel);
         interfacePanel.setLayout(interfacePanelLayout);
         interfacePanelLayout.setHorizontalGroup(
             interfacePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(interfacePanelLayout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(stopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126)
-                .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(interfacePanelLayout.createSequentialGroup()
-                .addComponent(progressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, interfacePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(interfacePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(trackCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(interfacePanelLayout.createSequentialGroup()
+                        .addComponent(progressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(progressSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, interfacePanelLayout.createSequentialGroup()
+                        .addComponent(yearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(genreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(interfacePanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(previousTrackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextTrackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         interfacePanelLayout.setVerticalGroup(
             interfacePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(interfacePanelLayout.createSequentialGroup()
-                .addGap(192, 192, 192)
+                .addGap(71, 71, 71)
+                .addComponent(genreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(yearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(interfacePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                    .addComponent(playPauseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(previousTrackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nextTrackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(trackCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(interfacePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(progressSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(progressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -571,14 +680,6 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         menuBar.setName(""); // NOI18N
         menuBar.setPreferredSize(new java.awt.Dimension(900, 32));
 
-        hamburguerMenu.setText("<html><b>☰</b></html>");
-        hamburguerMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hamburguerMenuMouseClicked(evt);
-            }
-        });
-        menuBar.add(hamburguerMenu);
-
         fileMenu.setText("<html><b>File</b></html>");
         fileMenu.setToolTipText("");
         fileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -718,7 +819,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -781,13 +882,6 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         setFontType(FontType.ROBOTO);
     }//GEN-LAST:event_robotoRadioButtonMenuItemMousePressed
-
-    private void hamburguerMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hamburguerMenuMouseClicked
-        // TODO add your handling code here:
-        if(SwingUtilities.isLeftMouseButton(evt)){
-            menuPanel.setVisible(!menuPanel.isVisible());
-        }
-    }//GEN-LAST:event_hamburguerMenuMouseClicked
 
     private void songsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songsButtonMouseClicked
         // TODO add your handling code here:
@@ -892,21 +986,18 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                         if (openedFiles.length > 0) {
                             String route;
 
-                            if(_AudioListPlayer.clearPlaylist()){
+                            for (File openFile : openedFiles) {
+                                route = openFile.getAbsolutePath();
+                                _AudioListPlayer.addMedia(route);
+                            }
 
-                                for (File openFile : openedFiles) {
-
-                                    route = openFile.getAbsolutePath();
-                                    _AudioListPlayer.addMedia(route);
+                            if(!_AudioListPlayer.isEmptyPlaylist()){
+                                _AudioListPlayer.play();
+                                if(_TrackCount == 0){
+                                    _TrackCount++;
                                 }
-
-                                if(!_AudioListPlayer.isEmptyPlaylist()){
-                                    _AudioListPlayer.play();
-                                }else{
-                                    //ERROR MESSAGE
-                                }
-                                
-                            } else{
+                                trackCountLabel.setText(Utilities.concat("<html><b><i>",_TrackCount.toString() ," / " , _AudioListPlayer.playListCount().toString(),"</i></b></html>"));
+                            }else{
                                 //ERROR MESSAGE
                             }
                         }
@@ -933,6 +1024,39 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stopLabelMousePressed
 
+    private void optionsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionsLabelMouseClicked
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            menuPanel.setVisible(!menuPanel.isVisible());
+        }
+    }//GEN-LAST:event_optionsLabelMouseClicked
+
+    private void playerOptionsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerOptionsLabelMouseClicked
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            interfacePanel.setVisible(!interfacePanel.isVisible());
+        }
+    }//GEN-LAST:event_playerOptionsLabelMouseClicked
+
+    private void previousTrackLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousTrackLabelMouseClicked
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            if(_AudioListPlayer.previous()){
+                _TrackCount--;
+                trackCountLabel.setText(Utilities.concat("<html><b><i>",_TrackCount.toString() ," / " , _AudioListPlayer.playListCount().toString(),"</i></b></html>"));
+            }
+        }
+    }//GEN-LAST:event_previousTrackLabelMouseClicked
+
+    private void nextTrackLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextTrackLabelMouseClicked
+        // TODO add your handling code here:
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            _AudioListPlayer.next();
+            _TrackCount = !_TrackCount.equals(_AudioListPlayer.playListCount()) ? _TrackCount + 1 : 1;
+            trackCountLabel.setText(Utilities.concat("<html><b><i>",_TrackCount.toString() ," / " , _AudioListPlayer.playListCount().toString(),"</i></b></html>"));
+        }
+    }//GEN-LAST:event_nextTrackLabelMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton albumsButton;
     private javax.swing.JRadioButtonMenuItem anuphanRadioButtonMenuItem;
@@ -948,8 +1072,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem firaSansRadioButtonMenuItem;
     private javax.swing.ButtonGroup fontButtonGroup;
     private javax.swing.JMenu fontMenu;
+    private javax.swing.JLabel genreLabel;
     private javax.swing.JButton genresButton;
-    private javax.swing.JMenu hamburguerMenu;
     private javax.swing.JRadioButtonMenuItem interRadioButtonMenuItem;
     private javax.swing.JPanel interfacePanel;
     private javax.swing.ButtonGroup languageButtonGroup;
@@ -958,13 +1082,17 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JRadioButtonMenuItem montserratRadioButtonMenuItem;
+    private javax.swing.JLabel nextTrackLabel;
     private javax.swing.JMenuItem openFilesMenuItem;
     private javax.swing.JMenuItem openFolderMenuItem;
     private javax.swing.JRadioButtonMenuItem openSansRadioButtonMenuItem;
+    private javax.swing.JLabel optionsLabel;
     private javax.swing.JLabel playPauseLabel;
+    private javax.swing.JLabel playerOptionsLabel;
     private javax.swing.JPanel playerPanel;
     private javax.swing.JButton playlistsButton;
     private javax.swing.JMenu preferencesMenu;
+    private javax.swing.JLabel previousTrackLabel;
     private javax.swing.JLabel progressLabel;
     private javax.swing.JSlider progressSlider;
     private javax.swing.JRadioButtonMenuItem quickSandRadioButtonMenuItem;
@@ -974,6 +1102,8 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem spanishRadioButtonMenuItem;
     private javax.swing.JLabel stopLabel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel trackCountLabel;
+    private javax.swing.JLabel yearLabel;
     // End of variables declaration//GEN-END:variables
 
     private void customInitComponents(){
@@ -991,6 +1121,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             
             //Set Flag mouse:
             flagMouseAuxiliar = true;
+            
+            //Set track count:
+            _TrackCount = 0;
             
             //Set year:
             Calendar calendar = Calendar.getInstance();
@@ -1021,6 +1154,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
             
             //Hide menu panel:
             menuPanel.setVisible(false);
+            
+            //Hide interface panel:
+            interfacePanel.setVisible(false);
 
         } catch (MalformedURLException ex) {
 
@@ -1034,7 +1170,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     */
     private void setLanguage(Language language){
         
-         _LanguageText.setLanguage(language);
+        _LanguageText.setLanguage(language);
         
         //Menu Items:
         fileMenu.setText(_LanguageText.MenuFileText());
@@ -1061,22 +1197,26 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         if(!_AudioListPlayer.isPlaying()){
             titleLabel.setText(_LanguageText.LabelTitleText());
             artistAlbumLabel.setText(_LanguageText.LabelArtistAlbumText());
+            genreLabel.setText(_LanguageText.LabelGenreText());
+            yearLabel.setText(_LanguageText.LabelYearText());
         }
         
         titleLabel.setToolTipText(_LanguageText.LabelTitleTooltipText());
         artistAlbumLabel.setToolTipText(_LanguageText.LabelArtistAlbumTooltipText());
+        genreLabel.setToolTipText(_LanguageText.LabelGenreTooltipText());
+        yearLabel.setToolTipText(_LanguageText.LabelYearTooltipText());
         
-        progressLabel.setToolTipText(_LanguageText.LabelDurationProgressTooltipText());
-        
-        //previousTrackLabel.setToolTipText(_LanguageText.LabelPreviousTrackTooltipText());
-        
-        //nextTrackLabel.setToolTipText(_LanguageText.LabelNextTrackTooltipText());
-        
-        brandLabel.setToolTipText(_LanguageText.LabelBrandTooltipText());
+        progressLabel.setToolTipText(_LanguageText.LabelProgressTooltipText());
+        durationLabel.setToolTipText(_LanguageText.LabelDurationTooltipText());
         
         playPauseLabel.setToolTipText(_LanguageText.LabelPlayPauseTooltipText());
-        
         stopLabel.setToolTipText(_LanguageText.LabelStopTooltipText());
+        previousTrackLabel.setToolTipText(_LanguageText.LabelPreviousTrackTooltipText());
+        nextTrackLabel.setToolTipText(_LanguageText.LabelNextTrackTooltipText());
+        
+        trackCountLabel.setToolTipText(_LanguageText.LabelTrackCountTooltipText());
+        
+        brandLabel.setToolTipText(_LanguageText.LabelBrandTooltipText());
         
         //Buttons:
         
@@ -1095,8 +1235,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         playlistsButton.setText(_LanguageText.ButtonPlaylistsText());
         playlistsButton.setToolTipText(_LanguageText.ButtonPlaylistsTooltipText());
         
+        //Options labels:
+        optionsLabel.setToolTipText(_LanguageText.LabelMenuTooltipText());
+        playerOptionsLabel.setToolTipText(_LanguageText.LabelInterfacePlayerTooltipText());
+        
     }
-    
     
     /**
      * Sets software font
@@ -1109,58 +1252,65 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
         //Menu Items:
 
-        Font menuItemFont = createdFont.deriveFont(13f);
+        Font font13 = createdFont.deriveFont(13f);
         
-        fileMenu.setFont(menuItemFont);
-        preferencesMenu.setFont(menuItemFont);
+        fileMenu.setFont(font13);
+        preferencesMenu.setFont(font13);
         
         //Menus:
 
-        Font menuFont = createdFont.deriveFont(12f);
-        languageMenu.setFont(menuFont);
-        fontMenu.setFont(menuFont);
+        Font font12 = createdFont.deriveFont(12f);
+        languageMenu.setFont(font12);
+        fontMenu.setFont(font12);
 
         //Radio Button Menus:
-        anuphanRadioButtonMenuItem.setFont(menuFont);
-        englishRadioButtonMenuItem.setFont(menuFont);
-        firaSansRadioButtonMenuItem.setFont(menuFont);
-        interRadioButtonMenuItem.setFont(menuFont);
-        montserratRadioButtonMenuItem.setFont(menuFont);
-        openSansRadioButtonMenuItem.setFont(menuFont);
-        quickSandRadioButtonMenuItem.setFont(menuFont);
-        ralewayRadioButtonMenuItem.setFont(menuFont);
-        robotoRadioButtonMenuItem.setFont(menuFont);
-        spanishRadioButtonMenuItem.setFont(menuFont);
+        anuphanRadioButtonMenuItem.setFont(font12);
+        englishRadioButtonMenuItem.setFont(font12);
+        firaSansRadioButtonMenuItem.setFont(font12);
+        interRadioButtonMenuItem.setFont(font12);
+        montserratRadioButtonMenuItem.setFont(font12);
+        openSansRadioButtonMenuItem.setFont(font12);
+        quickSandRadioButtonMenuItem.setFont(font12);
+        ralewayRadioButtonMenuItem.setFont(font12);
+        robotoRadioButtonMenuItem.setFont(font12);
+        spanishRadioButtonMenuItem.setFont(font12);
         
-        openFilesMenuItem.setFont(menuFont);
-        openFolderMenuItem.setFont(menuFont);
+        openFilesMenuItem.setFont(font12);
+        openFolderMenuItem.setFont(font12);
         
-        brandYearLabel.setFont(menuFont);
+        brandYearLabel.setFont(font12);
 
         //Labels:
+        Font font15 = createdFont.deriveFont(15f);
 
-        Font labelFont = createdFont.deriveFont(15f);
-
-        titleLabel.setFont(labelFont);
-        artistAlbumLabel.setFont(labelFont);
-        durationLabel.setFont(menuItemFont);
-        playPauseLabel.setFont(menuItemFont);
-        stopLabel.setFont(menuItemFont);
-        progressLabel.setFont(menuItemFont);
+        titleLabel.setFont(font15);
+        artistAlbumLabel.setFont(font15);
+        genreLabel.setFont(font15);
+        yearLabel.setFont(font15);
+        durationLabel.setFont(font13);
+        progressLabel.setFont(font13);
         
         //Buttons:
+        Font font18 = createdFont.deriveFont(18f);
+        songsButton.setFont(font18);
+        artistsButton.setFont(font18);
+        albumsButton.setFont(font18);
+        genresButton.setFont(font18);
+        playlistsButton.setFont(font18);
+        progressSlider.setFont(font18);
+        trackCountLabel.setFont(font18);
         
-        Font buttonFont = createdFont.deriveFont(18f);
-        songsButton.setFont(buttonFont);
-        artistsButton.setFont(buttonFont);
-        albumsButton.setFont(buttonFont);
-        genresButton.setFont(buttonFont);
-        playlistsButton.setFont(buttonFont);
-        progressSlider.setFont(buttonFont);
+        //Options:
+        Font font20 = createdFont.deriveFont(20f);
+        optionsLabel.setFont(font20);
+        playerOptionsLabel.setFont(font20);
         
-        //Specials
-        Font specialFont = createdFont.deriveFont(24f);
-        hamburguerMenu.setFont(specialFont);
+        //Player options:
+        Font font32 = createdFont.deriveFont(32f);
+        playPauseLabel.setFont(font32);
+        stopLabel.setFont(font32);
+        nextTrackLabel.setFont(font32);
+        previousTrackLabel.setFont(font32);
         
     }
     
@@ -1185,11 +1335,9 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         brandYearLabel.setForeground(_Colour.getThirdFontColor());
         
         artistAlbumLabel.setForeground(_Colour.getFirstFontColor());
-        progressLabel.setForeground(_Colour.getFirstFontColor());
-        durationLabel.setForeground(_Colour.getFirstFontColor());
+        progressLabel.setForeground(_Colour.getSecondFontColor());
+        durationLabel.setForeground(_Colour.getFourthFontColor());
         titleLabel.setForeground(_Colour.getFirstFontColor());
-        playPauseLabel.setForeground(_Colour.getFirstFontColor());
-        stopLabel.setForeground(_Colour.getFirstFontColor());
         
         progressSlider.setBackground(_Colour.getFirstColor());
         progressSlider.setForeground(_Colour.getFirstFontColor());
@@ -1199,9 +1347,17 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
         
         coverArtLabel.setBackground(_Colour.getFourthColor());
         
-        //previousTrackLabel.setForeground(_Colour.getThirdFontColor());
-        //nextTrackLabel.setForeground(_Colour.getFirstFontColor());
-
+        optionsLabel.setForeground(_Colour.getFirstFontColor());
+        playerOptionsLabel.setForeground(_Colour.getFirstFontColor());
+        
+        genreLabel.setForeground(_Colour.getSecondFontColor());
+        yearLabel.setForeground(_Colour.getSecondFontColor());
+        trackCountLabel.setForeground(_Colour.getSecondFontColor());
+        
+        playPauseLabel.setForeground(_Colour.getFourthFontColor());
+        stopLabel.setForeground(_Colour.getFourthFontColor());
+        previousTrackLabel.setForeground(_Colour.getFourthFontColor());
+        nextTrackLabel.setForeground(_Colour.getFourthFontColor());
     }
     
     /**
@@ -1237,7 +1393,7 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
 
                 @Override
                 public void paused(MediaPlayer mediaPlayer) {
-                    playPauseLabel.setText("<html><b>⏵</b></html>");
+                    playPauseLabel.setText("<html><b>▶</b></html>");
                 }
 
                 @Override
@@ -1401,12 +1557,17 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     * Cleans labels and cover art when player stops or finalizes
     */
     private void cleanInfo(){
-        titleLabel.setText("");
-        artistAlbumLabel.setText("");
-        durationLabel.setText("");
-        progressLabel.setText("");
+        titleLabel.setText(_LanguageText.LabelTitleText());
+        artistAlbumLabel.setText(_LanguageText.LabelArtistAlbumText());
+        genreLabel.setText(_LanguageText.LabelGenreText());
+        yearLabel.setText(_LanguageText.LabelYearText());
+        durationLabel.setText("<html><i><b>00:00:00</b></i></html>");
+        progressLabel.setText("<html><i><b>00:00:00</b></i></html>");
+        trackCountLabel.setText("<html><b><i>0 / 0</i></b></html>");
+        playPauseLabel.setText("<html><b>▶</b></html>");
         progressSlider.setValue(0);
         coverArtLabel.setIcon(null);
+        _TrackCount = 0;
         _Colour.Reset();
         setColour();
         this.repaint();
@@ -1419,11 +1580,10 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
     private void enableDisableComponentsPlaying(boolean isEnable){
         
         progressSlider.setEnabled(isEnable);
-        //nextTrackLabel.setEnabled(isEnable);
-        //previousTrackLabel.setEnabled(isEnable);
+        nextTrackLabel.setEnabled(isEnable);
+        previousTrackLabel.setEnabled(isEnable);
         playPauseLabel.setEnabled(isEnable);
         stopLabel.setEnabled(isEnable);
-        
     }
     
     /**
@@ -1446,9 +1606,13 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                     String title = tag.getFirst(FieldKey.TITLE);
                     String artist = tag.getFirst(FieldKey.ARTIST);
                     String album = tag.getFirst(FieldKey.ALBUM);
+                    String genre = tag.getFirst(FieldKey.GENRE);
+                    String year = tag.getFirst(FieldKey.YEAR);
                     
                     titleLabel.setText(Utilities.bHtml(title));
                     artistAlbumLabel.setText(Utilities.concat("<html><b>", artist, " - <i>", album, "</i></b></html>" ));
+                    genreLabel.setText(Utilities.bHtml(genre));
+                    yearLabel.setText(Utilities.iHtml(year));
                     
                     Artwork artwork = tag.getFirstArtwork();
                     
@@ -1502,9 +1666,11 @@ public class MusicPlayerFrame extends javax.swing.JFrame {
                 else{
                     titleLabel.setText(Utilities.bHtml(musicFile.getName()));
                     artistAlbumLabel.setText(Utilities.concat("<html><b><i>",_LanguageText.MetadataUnknownText(),"</i></b></html>"));
+                    genreLabel.setText(Utilities.bHtml(_LanguageText.MetadataUnknownText()));
+                    yearLabel.setText(Utilities.iHtml(_LanguageText.MetadataUnknownText()));
                 }
             }
-        } catch (URISyntaxException | CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException ex) {
+        } catch (URISyntaxException | CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException | CloneNotSupportedException ex) {
             //ERRROR MESSAGE
         }
     }

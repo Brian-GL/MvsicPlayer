@@ -18,11 +18,9 @@
 package brian_gl.mvsicplayer.component;
 
 import brian_gl.mvsicplayer.lang.LanguageText;
-import com.formdev.flatlaf.FlatDarculaLaf;
 import java.awt.Font;
 import java.util.Locale;
 import javax.swing.JFileChooser;
-import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
 
 /**
